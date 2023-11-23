@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include "SDL.h"
+#include "Timer.h"
 
 class Game
 {
@@ -8,9 +9,12 @@ private:
 	SDL_Window* window;
 	bool isRunning;
 
+	Timer* mTimer;
+	static int FRAME_RATE;
+
 public:
 	static SDL_Renderer* renderer;
-
+	
 	//Game();
 	//~Game();
 
@@ -18,6 +22,7 @@ public:
 	void handleEvents();
 	void update();
 	void render();
+	void timer();
 	void clean();
 	bool running();
 };

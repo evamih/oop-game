@@ -31,12 +31,16 @@ void Game::init(const char* title, int xPos, int yPos, int width, int height, bo
 			std::cout << "Renderer created!\n";
 		}
 
+		mTimer = Timer::Instance();
+
 		isRunning = true;
 	}
 	else
 	{
 		isRunning = false;
 	}
+
+
 
 	map = new Map();
 }
@@ -69,10 +73,32 @@ void Game::render()
 	SDL_RenderPresent(renderer);
 }
 
+// ------------- Timer zone -----------------
+
+void Game::timer() {
+
+	mTimer->Update();
+
+	const int initialTime = 300;
+
+	if ((mTimer->DeltaTime() - (int)(mTimer->DeltaTime())) >= 0.984f) {
+
+		int secondsLeft = initialTime - (int)(mTimer->DeltaTime());
+		int minutesLeft = secondsLeft / 60;
+		secondsLeft %= 60;
+		printf("%i : %i\n", minutesLeft, secondsLeft);
+	}
+
+}
+
+//-------------------------------------------
+
 void Game::clean()
 {
 	SDL_DestroyWindow(window);
 	SDL_DestroyRenderer(renderer);
+	Timer::Release();
+	mTimer = NULL;
 	SDL_Quit();
 	std::cout << "Game cleaned!\n";
 }

@@ -10,7 +10,7 @@ int main(int argc, const char* argv[])
 
 	Uint32 frameStart;
 	int frameTime;
-
+	
 	game = new Game;
 
 	game->init("Test", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 640, 640, false);
@@ -22,6 +22,7 @@ int main(int argc, const char* argv[])
 		game->handleEvents();
 		game->update();
 		game->render();
+		game->timer(); // displays countdown in console
 
 		frameTime = SDL_GetTicks() - frameStart;
 
