@@ -131,12 +131,16 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="OOP-Game.cpp" />
     <ClCompile Include="TextureManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Components.h" />
+    <ClInclude Include="ECS.h" />
     <ClInclude Include="Game.hpp" />
+    <ClInclude Include="GameObject.h" />
     <ClInclude Include="Map.hpp" />
     <ClInclude Include="TextureManager.hpp" />
   </ItemGroup>

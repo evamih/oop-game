@@ -1,8 +1,17 @@
 #include "Game.hpp"
 #include "Map.hpp"
+#include "GameObject.h"
+#include "ECS.h"
+#include "Components.h"
+#include "TextureManager.hpp"
+
+GameObject* player;
 
 Map* map;
 SDL_Renderer* Game::renderer = nullptr;
+
+Manager manager;
+auto& newPlayer(manager.addEntity());
 
 void Game::init(const char* title, int xPos, int yPos, int width, int height, bool fullscreen)
 {
@@ -38,7 +47,13 @@ void Game::init(const char* title, int xPos, int yPos, int width, int height, bo
 		isRunning = false;
 	}
 
+	player = new GameObject("assets/caraplayer.png", 0, 0);
+
+
 	map = new Map();
+
+	newPlayer.addComponent<PositionComponent>();
+	newPlayer.getComponent<PositionComponent>().setPos(0, 0);
 }
 
 void Game::handleEvents()
@@ -59,13 +74,18 @@ void Game::handleEvents()
 
 void Game::update()
 {
+	player->Update();
 
+	manager.update();
+	std::cout << newPlayer.getComponent<PositionComponent>().x() << ", " <<
+		newPlayer.getComponent<PositionComponent>().y() << std::endl;
 }
 
 void Game::render()
 {
 	SDL_RenderClear(renderer);
 	map->drawMap();
+	player->Render();
 	SDL_RenderPresent(renderer);
 }
 
