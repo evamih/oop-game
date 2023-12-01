@@ -5,7 +5,7 @@
 Map* map;
 SDL_Renderer* Game::renderer = nullptr;
 
-CountdownRenderer _countdown;
+CountdownRenderer* _countdown;
 
 void Game::init(const char* title, int xPos, int yPos, int width, int height, bool fullscreen)
 {
@@ -44,7 +44,7 @@ void Game::init(const char* title, int xPos, int yPos, int width, int height, bo
 	}
 
 
-
+	_countdown = new CountdownRenderer();
 	map = new Map();
 }
 
@@ -88,10 +88,12 @@ void Game::countdown() {
 		int secondsLeft = initialTime - (int)(mTimer->DeltaTime());
 		int minutesLeft = secondsLeft / 60;
 		secondsLeft %= 60; 
-		SDL_RenderClear(renderer);
-		_countdown.drawCountdown(minutesLeft, secondsLeft);
-		SDL_RenderPresent(renderer);
-// printf("%i : %i\n", minutesLeft, secondsLeft);
+
+		//SDL_RenderClear(renderer);
+		_countdown->drawCountdown(minutesLeft, secondsLeft);
+		//SDL_RenderPresent(renderer);
+		printf("%i : %i\n", minutesLeft, secondsLeft);
+
 	}
 
 }
