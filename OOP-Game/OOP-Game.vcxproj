@@ -130,6 +130,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CountdownRenderer.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="OOP-Game.cpp" />
@@ -137,6 +138,7 @@
     <ClCompile Include="Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CountdownRenderer.h" />
     <ClInclude Include="Game.hpp" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="Map.hpp" />

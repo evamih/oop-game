@@ -22,7 +22,7 @@ int main(int argc, const char* argv[])
 		game->handleEvents();
 		game->update();
 		game->render();
-		game->timer(); // displays countdown in console
+		game->countdown(); // displays countdown
 
 		frameTime = SDL_GetTicks() - frameStart;
 

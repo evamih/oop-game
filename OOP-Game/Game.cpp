@@ -1,8 +1,11 @@
 #include "Game.hpp"
 #include "Map.hpp"
+#include "CountdownRenderer.h"
 
 Map* map;
 SDL_Renderer* Game::renderer = nullptr;
+
+CountdownRenderer _countdown;
 
 void Game::init(const char* title, int xPos, int yPos, int width, int height, bool fullscreen)
 {
@@ -73,20 +76,22 @@ void Game::render()
 	SDL_RenderPresent(renderer);
 }
 
-// ------------- Timer zone -----------------
+// ------------- Countdown zone -----------------
 
-void Game::timer() {
+void Game::countdown() {
 
 	mTimer->Update();
 
 	const int initialTime = 300;
-
 	if ((mTimer->DeltaTime() - (int)(mTimer->DeltaTime())) >= 0.984f) {
 
 		int secondsLeft = initialTime - (int)(mTimer->DeltaTime());
 		int minutesLeft = secondsLeft / 60;
-		secondsLeft %= 60;
-		printf("%i : %i\n", minutesLeft, secondsLeft);
+		secondsLeft %= 60; 
+		SDL_RenderClear(renderer);
+		_countdown.drawCountdown(minutesLeft, secondsLeft);
+		SDL_RenderPresent(renderer);
+// printf("%i : %i\n", minutesLeft, secondsLeft);
 	}
 
 }

@@ -22,7 +22,7 @@ public:
 	void handleEvents();
 	void update();
 	void render();
-	void timer();
+	void countdown();
 	void clean();
 	bool running();
 };
