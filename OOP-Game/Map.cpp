@@ -1,51 +1,31 @@
 #include "Map.hpp"
-
-int l1[10][10] = { 0 };
+#include "Game.hpp"
+ #include <fstream>
 
 Map::Map()
 {
-	ground = TextureManager::loadTexture("assets/ground/tile.png");
-
-	src.x = src.y = 0;
-	src.h = src.w = 64;
-	dest.h = dest.w = 64;
-	dest.x = dest.y = 0;
-
-	loadMap(l1);
+}
+Map::~Map()
+{
 }
 
-void Map::loadMap(int arr[10][10])
+void Map::loadMap(std::string filepath, int sizeX, int sizeY)
 {
-	for (int row = 0; row < 10; row++)
+
+	char tile; 
+	std::fstream mapFile;
+	mapFile.open(filepath);
+
+	for(int y = 0; y < sizeY; y++)
 	{
-		for (int col = 0; col < 10; col++)
+		for (int x = 0; x < sizeX; x++)
 		{
-			map[row][col] = l1[row][col];
+			mapFile.get(tile);
+			Game::addTile(atoi(&tile), x * 64, y * 64); //width*2, height*2
+			mapFile.ignore();
 		}
 	}
+
+	mapFile.close();
 }
 
-void Map::drawMap()
-{
-	int type = 0;
-
-	for (int row = 0; row < 10; row++)
-	{
-		for (int col = 0; col < 10; col++)
-		{
-			type = map[row][col];
-
-			dest.x = col * 64;
-			dest.y = row * 64;
-
-			switch (type)
-			{
-			case 0:
-				TextureManager::draw(ground, src, dest);
-				break;
-			default:
-				break;
-			}
-		}
-	}
-}

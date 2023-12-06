@@ -1,20 +1,13 @@
 #pragma once
 #include "SDL.h"
 #include "TextureManager.hpp"
+#include <string>
 
 class Map
 {
-private:
-	SDL_Rect src;
-	SDL_Rect dest;
-
-	SDL_Texture* ground;
-
 public:
 	Map();
+	~Map();
 
-	void loadMap(int arr[10][10]);
-	void drawMap();
-
-	int map[30][30];
+	static void loadMap(std::string filepath, int sizeX, int sizeY);
 };

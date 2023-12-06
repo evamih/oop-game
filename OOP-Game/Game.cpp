@@ -1,17 +1,20 @@
 #include "Game.hpp"
 #include "Map.hpp"
-#include "GameObject.h"
-#include "ECS.h"
-#include "Components.h"
 #include "TextureManager.hpp"
+#include "Components.h"
+#include "Vector2D.h"
+#include "Collision.h"
 
-GameObject* player;
 
 Map* map;
-SDL_Renderer* Game::renderer = nullptr;
-
 Manager manager;
-auto& newPlayer(manager.addEntity());
+SDL_Renderer* Game::renderer = nullptr;
+SDL_Event Game::event;
+
+std::vector<ColliderComponent*> Game::colliders;
+
+auto& player(manager.addEntity());
+auto& wall(manager.addEntity());
 
 void Game::init(const char* title, int xPos, int yPos, int width, int height, bool fullscreen)
 {
@@ -40,25 +43,43 @@ void Game::init(const char* title, int xPos, int yPos, int width, int height, bo
 			std::cout << "Renderer created!\n";
 		}
 
-		isRunning = true;
-	}
-	else
-	{
-		isRunning = false;
-	}
 
-	player = new GameObject("assets/caraplayer.png", 0, 0);
+		isRunning = true;
+	 }
+	else
+	 {
+		isRunning  = false;
+	 }
 
 
 	map = new Map();
+	/*tile0.addComponent<TileComponent>(400.0f, 30.0f, 64, 64, 0);//tile
+	tile1.addComponent<TileComponent>(400.0f, 200.0f, 64, 64, 1);//greentile
+	tile1.addComponent<ColliderComponent>("purple"); // tagurile pe culori nu au f mult sens
+	tile2.addComponent<TileComponent>(400.0f, 400.0f, 64, 64, 2);//bluetile
+	tile2.addComponent<ColliderComponent>("blue");*/
 
-	newPlayer.addComponent<PositionComponent>();
-	newPlayer.getComponent<PositionComponent>().setPos(0, 0);
+	Map::loadMap("assets/ground/map10x10.map", 10, 10);
+
+	player.addComponent<TransformComponent>(200.0f, 200.0f);
+	player.addComponent<SpriteComponent>("assets/colliderTestPlayer.png");
+	player.addComponent<KeyboardController>();
+	player.addComponent<ColliderComponent>("player");
+
+	wall.addComponent<TransformComponent>(80.0f, 30.0f, 40, 80, 2);
+	wall.addComponent<SpriteComponent>("assets/ground/graytile.png");
+	wall.addComponent<ColliderComponent>("wall");
+
+	//intre componentele astea sa fie mereu spatiu mai mare decat personajul nostru si nu prea imi convine
+}
+
+void Game::openWindow()
+{
+	std::cout << "open window" << std::endl;
 }
 
 void Game::handleEvents()
 {
-	SDL_Event event;
 	SDL_PollEvent(&event);
 
 	switch (event.type)
@@ -66,27 +87,36 @@ void Game::handleEvents()
 	case SDL_QUIT:
 		isRunning = false;
 		break;
-
 	default:
-		break;
+		break; 
 	}
 }
 
 void Game::update()
 {
-	player->Update();
-
+	manager.refresh();
 	manager.update();
-	std::cout << newPlayer.getComponent<PositionComponent>().x() << ", " <<
-		newPlayer.getComponent<PositionComponent>().y() << std::endl;
+
+	for (auto cc : colliders) //care este vectorul de pointeri de colliders initializati
+	{
+		Collision::AABB(player.getComponent<ColliderComponent>(), *cc);
+		/* {
+			player.getComponent<TransformComponent>().velocity * -1;
+			std::cout << "Wall hit!" << std::endl;
+			
+			//personajul trebuie sa fie de 64x64 in tot fisierul / sa luam alt rectangle / sa aiba o toleranta de cativa pixeli stanga dreapta astfel incat sa nu se blocheze intre colliders
+		}*/
+	}
 }
 
 void Game::render()
 {
 	SDL_RenderClear(renderer);
-	map->drawMap();
-	player->Render();
+
+	manager.draw();
+
 	SDL_RenderPresent(renderer);
+
 }
 
 void Game::clean()
@@ -100,4 +130,10 @@ void Game::clean()
 bool Game::running()
 {
 	return isRunning;
+}
+
+void Game::addTile(int id, int x, int y)
+{
+	auto& tile(manager.addEntity());
+	tile.addComponent<TileComponent>(x, y, 32, 32, id);
 }

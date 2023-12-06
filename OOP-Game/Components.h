@@ -1,40 +1,10 @@
 #pragma once
+
 #include "ECS.h"
+#include "TransformComponent.h"
+#include "SpriteComponent.h"
+#include "KeyboardController.h"
+#include "ColliderComponent.h"
+#include "TileComponent.h"
 
-class PositionComponent : public Component
-{
-private:
-	int xpos;
-	int ypos;
-
-public:
-
-	int x()
-	{
-		return xpos;
-	}
-	int y()
-	{
-		return ypos;
-	}
-
-	void init() override
-	{
-		xpos = 0;
-		ypos = 0;
-	}
-
-	void update() override
-	{
-		xpos++;
-		ypos++;
-	}
-
-	void setPos(int x, int y)
-	{
-		xpos = x;
-		ypos = y;
-	}
-
-
-};
+//reminder ..in restul din ecs sa scot components

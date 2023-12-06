@@ -1,6 +1,4 @@
-﻿  Game.cpp
-  GameObject.cpp
-  Map.cpp
-  TextureManager.cpp
+﻿  Collision.cpp
+  Game.cpp
   Generating Code...
-  OOP-Game.vcxproj -> C:\Users\Eva\Desktop\facultate\ANUL 2\proiect POO\oop-game\OOP-Game\Debug\OOP-Game.exe
+  OOP-Game.vcxproj -> C:\Users\serba\OneDrive\Desktop\anul 2\proiect_poo\oop-game\OOP-Game\Debug\OOP-Game.exe

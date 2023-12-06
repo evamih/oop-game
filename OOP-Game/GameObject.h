@@ -1,6 +1,7 @@
 #pragma once
 #include "Game.hpp"
 #include "TextureManager.hpp"
+//trebuie sters
 
 class GameObject
 {
@@ -12,6 +13,7 @@ public:
 	void Render();
 
 private:
+
 	int xpos;
 	int ypos;
 
@@ -19,4 +21,4 @@ private:
 	SDL_Rect srcRect, destRect;
 
 };
-
+ 

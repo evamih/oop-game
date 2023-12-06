@@ -53,9 +53,12 @@ public:
 	void update()
 	{
 		for (auto& c : components) c->update();
+		
+	}
+	void draw() 
+	{
 		for (auto& c : components) c->draw();
 	}
-	void draw() {}
 	bool isActive()
 	{
 		return active;
@@ -67,7 +70,7 @@ public:
 
 	template <typename T> bool hasComponent() const
 	{
-		return componentBitSet[getComponentTypeID<T>];
+		return componentBitSet[getComponentTypeID<T>()];
 	}
 
 	template <typename T, typename... TArgs>
