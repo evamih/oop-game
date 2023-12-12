@@ -6,5 +6,3 @@
 #include "KeyboardController.h"
 #include "ColliderComponent.h"
 #include "TileComponent.h"
-
-//reminder ..in restul din ecs sa scot components

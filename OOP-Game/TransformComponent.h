@@ -12,7 +12,7 @@ public:
 
 	int height = 64;
 	int width = 64;
-	int scale = 2;
+	int scale = 1;
 
 	int speed = 3;
 

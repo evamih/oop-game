@@ -36,6 +36,9 @@ public:
 		case 2:
 			filepath = "assets/ground/green32.png";
 			break;
+		case 3:
+			filepath = "assets/pink32.png";
+			break;
 		default:
 			break;
 		}

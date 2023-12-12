@@ -7,14 +7,27 @@
 
 
 Map* map;
+Map* minimap;
 Manager manager;
 SDL_Renderer* Game::renderer = nullptr;
 SDL_Event Game::event;
+std::string Game::gameState = "mainGameState";
 
 std::vector<ColliderComponent*> Game::colliders;
 
 auto& player(manager.addEntity());
 auto& wall(manager.addEntity());
+auto& door1(manager.addEntity());
+auto& door2(manager.addEntity());
+
+enum groupLabels : std::size_t
+{
+	groupMap,
+	groupPlayers,
+	groupDoors,
+	groupColliders,
+	groupMinigames
+};
 
 void Game::init(const char* title, int xPos, int yPos, int width, int height, bool fullscreen)
 {
@@ -53,24 +66,33 @@ void Game::init(const char* title, int xPos, int yPos, int width, int height, bo
 
 
 	map = new Map();
-	/*tile0.addComponent<TileComponent>(400.0f, 30.0f, 64, 64, 0);//tile
-	tile1.addComponent<TileComponent>(400.0f, 200.0f, 64, 64, 1);//greentile
-	tile1.addComponent<ColliderComponent>("purple"); // tagurile pe culori nu au f mult sens
-	tile2.addComponent<TileComponent>(400.0f, 400.0f, 64, 64, 2);//bluetile
-	tile2.addComponent<ColliderComponent>("blue");*/
 
-	Map::loadMap("assets/ground/map10x10.map", 10, 10);
+	Map::loadMap("assets/ground/map16x16.map", 16, 16, 0, 0);
 
-	player.addComponent<TransformComponent>(200.0f, 200.0f);
-	player.addComponent<SpriteComponent>("assets/colliderTestPlayer.png");
+	//player.addComponent<TransformComponent>(0.0f, 0.0f);
+	player.addComponent<SpriteComponent>("assets/boyplayer64x64.png");
+	//player.addComponent<SpriteComponent>("assets/caraplayer64x64.png");
+	player.addComponent<SpriteComponent>("assets/girlplayer64x64.png");
 	player.addComponent<KeyboardController>();
 	player.addComponent<ColliderComponent>("player");
+	player.addGroup(groupPlayers);
 
-	wall.addComponent<TransformComponent>(80.0f, 30.0f, 40, 80, 2);
+	/*wall.addComponent<TransformComponent>(800.0f, 800.0f, 40, 80, 2);
 	wall.addComponent<SpriteComponent>("assets/ground/graytile.png");
 	wall.addComponent<ColliderComponent>("wall");
+	wall.addGroup(groupMap);*/
 
-	//intre componentele astea sa fie mereu spatiu mai mare decat personajul nostru si nu prea imi convine
+	door1.addComponent<TransformComponent>(256.0f, 64.0f, 64, 64, 2);
+	door1.addComponent<SpriteComponent>("assets/door.png");
+	door1.addComponent<ColliderComponent>("door1");
+	door1.addGroup(groupDoors);
+
+	door2.addComponent<TransformComponent>(900.0f, 384.0f, 64, 64, 2);
+	door2.addComponent<SpriteComponent>("assets/door.png");
+	door2.addComponent<ColliderComponent>("door2");
+	door2.addGroup(groupDoors);
+
+	//space between walls/doors has to be bigger than the player
 }
 
 void Game::openWindow()
@@ -92,29 +114,71 @@ void Game::handleEvents()
 	}
 }
 
+void startMiniGame()
+{
+	minimap = new Map();
+
+	Map::loadMap("assets/ground/map10x10.map", 10, 10, 3, 3);
+	
+	//if (Game::event.type == SDL_KEYDOWN)
+	//{
+	//	if(Game::event.key.keysym.sym  == SDLK_x)
+	//		Map::loadMap("assets/ground/map10x10tiles.map", 10, 10, 3, 3);
+	//		// destroy window !!
+	//}
+
+	Game::gameState = "mainGameState";
+	//std::cout << Game::gameState << std::endl;
+	// collision = false
+}
+
 void Game::update()
 {
 	manager.refresh();
 	manager.update();
 
-	for (auto cc : colliders) //care este vectorul de pointeri de colliders initializati
+	for (auto cc : colliders) 
 	{
 		Collision::AABB(player.getComponent<ColliderComponent>(), *cc);
-		/* {
-			player.getComponent<TransformComponent>().velocity * -1;
-			std::cout << "Wall hit!" << std::endl;
+		if (Collision::AABB(player.getComponent<ColliderComponent>(), *cc) && cc->tag == "door1") //door1 as an example
+		{
+			player.addComponent<TransformComponent>().velocity * -1;
+			gameState = "miniGameState";
 			
-			//personajul trebuie sa fie de 64x64 in tot fisierul / sa luam alt rectangle / sa aiba o toleranta de cativa pixeli stanga dreapta astfel incat sa nu se blocheze intre colliders
-		}*/
+			//std::cout << gameState << std::endl; 		
+		}
 	}
+	if(gameState == "miniGameState")
+		startMiniGame();
+
 }
+
+auto& tiles(manager.getGroup(groupMap));
+auto& players(manager.getGroup(groupPlayers));
+auto& doors(manager.getGroup(groupDoors));
+auto& minigame(manager.getGroup(groupMinigames));
 
 void Game::render()
 {
 	SDL_RenderClear(renderer);
 
-	manager.draw();
-
+	for (auto& t : tiles) 
+	{
+		t->draw();
+	}
+	for (auto& d : doors)
+	{
+		d->draw();
+	}
+	for (auto& p : players)
+	{
+		p->draw();
+	}
+	for (auto& m : minigame)
+	{
+		m->draw();
+	}
+	
 	SDL_RenderPresent(renderer);
 
 }
@@ -135,5 +199,13 @@ bool Game::running()
 void Game::addTile(int id, int x, int y)
 {
 	auto& tile(manager.addEntity());
-	tile.addComponent<TileComponent>(x, y, 32, 32, id);
+	tile.addComponent<TileComponent>(x, y, 32, 32, id);//png width and height
+	tile.addGroup(groupMap);
+}
+
+void Game::minigameBackground(int id, int x, int y)
+{
+	auto& minitile(manager.addEntity());
+	minitile.addComponent<TileComponent>(x, y, 32, 32, id);//png width and height
+	minitile.addGroup(groupMinigames);
 }

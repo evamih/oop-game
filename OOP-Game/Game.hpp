@@ -17,6 +17,7 @@ public:
 	static SDL_Renderer* renderer;
 	static SDL_Event event;
 	static std::vector<ColliderComponent*> colliders; //lista de colliders initializate
+	static std::string gameState;
 	static void addTile(int id, int x, int y);
 
 	//Game();
@@ -29,5 +30,6 @@ public:
 	void render();
 	void clean();
 	bool running();
+	void minigameBackground(int id, int x, int y);
 };
 

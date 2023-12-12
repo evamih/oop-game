@@ -9,5 +9,5 @@ public:
 	Map();
 	~Map();
 
-	static void loadMap(std::string filepath, int sizeX, int sizeY);
+	static void loadMap(std::string filepath, int sizeX, int sizeY, int xpos, int ypos);
 };
