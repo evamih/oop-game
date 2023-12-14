@@ -7,6 +7,8 @@ private:
 	SDL_Rect src;
 	SDL_Rect dest;
 
+	SDL_Rect digitsSrc, digitsDest[4];
+
 	SDL_Texture* timerDigits[10];
 	SDL_Texture* timerBox;
 public:
@@ -14,5 +16,6 @@ public:
 
 	void loadDigits();
 	void drawCountdown(int minutes, int seconds);
+	void drawCountdownBox();
 
 };

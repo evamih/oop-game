@@ -73,6 +73,7 @@ void Game::render()
 {
 	SDL_RenderClear(renderer);
 	map->drawMap();
+	this->countdown();
 	SDL_RenderPresent(renderer);
 }
 
@@ -81,17 +82,19 @@ void Game::render()
 void Game::countdown() {
 
 	mTimer->Update();
+	
+	int secondsLeft=0;
+	int minutesLeft=0;
 
+	_countdown->drawCountdownBox();
 	const int initialTime = 300;
 	if ((mTimer->DeltaTime() - (int)(mTimer->DeltaTime())) >= 0.984f) {
 
-		int secondsLeft = initialTime - (int)(mTimer->DeltaTime());
-		int minutesLeft = secondsLeft / 60;
+		secondsLeft = initialTime - (int)(mTimer->DeltaTime());
+		minutesLeft = secondsLeft / 60;
 		secondsLeft %= 60; 
 
-		//SDL_RenderClear(renderer);
 		_countdown->drawCountdown(minutesLeft, secondsLeft);
-		//SDL_RenderPresent(renderer);
 		printf("%i : %i\n", minutesLeft, secondsLeft);
 
 	}
