@@ -66,11 +66,11 @@ void Game::init(const char* title, int xPos, int yPos, int width, int height, bo
 
 
 	map = new Map();
-
+	minimap = new Map();
 	Map::loadMap("assets/ground/map16x16.map", 16, 16, 0, 0);
 
-	//player.addComponent<TransformComponent>(0.0f, 0.0f);
-	player.addComponent<SpriteComponent>("assets/boyplayer64x64.png");
+	player.addComponent<TransformComponent>(0.0f, 0.0f);
+	//player.addComponent<SpriteComponent>("assets/boyplayer64x64.png");
 	//player.addComponent<SpriteComponent>("assets/caraplayer64x64.png");
 	player.addComponent<SpriteComponent>("assets/girlplayer64x64.png");
 	player.addComponent<KeyboardController>();
@@ -116,9 +116,8 @@ void Game::handleEvents()
 
 void startMiniGame()
 {
-	minimap = new Map();
-
-	Map::loadMap("assets/ground/map10x10.map", 10, 10, 3, 3);
+	minimap->FilePath="assets/ground/map10x10.map";
+	minimap->loadMap(minimap->FilePath, 10, 10, 3, 3);
 	
 	//if (Game::event.type == SDL_KEYDOWN)
 	//{
@@ -127,9 +126,17 @@ void startMiniGame()
 	//		// destroy window !!
 	//}
 
-	Game::gameState = "mainGameState";
+	//Game::gameState = "mainGameState";
 	//std::cout << Game::gameState << std::endl;
 	// collision = false
+}
+
+void stopMiniGame()
+{
+	minimap->~Map();
+
+	Map::loadMap("assets/ground/map16x16.map", 16, 16, 0, 0);
+	
 }
 
 void Game::update()
@@ -142,15 +149,26 @@ void Game::update()
 		Collision::AABB(player.getComponent<ColliderComponent>(), *cc);
 		if (Collision::AABB(player.getComponent<ColliderComponent>(), *cc) && cc->tag == "door1") //door1 as an example
 		{
-			player.addComponent<TransformComponent>().velocity * -1;
-			gameState = "miniGameState";
-			
-			//std::cout << gameState << std::endl; 		
+			//player.addComponent<TransformComponent>().velocity * -1;
+			if(gameState == "mainGameState")
+			{
+				startMiniGame();
+				gameState = "miniGameState";
+			}
+			std::cout << gameState << std::endl; 		
 		}
 	}
 	if(gameState == "miniGameState")
-		startMiniGame();
-
+	{
+		if (Game::event.type == SDL_KEYDOWN)
+		{
+			if (Game::event.key.keysym.sym == SDLK_x)
+			{
+				stopMiniGame();
+				gameState = "mainGameState";
+			}
+		}
+	}
 }
 
 auto& tiles(manager.getGroup(groupMap));
@@ -209,3 +227,4 @@ void Game::minigameBackground(int id, int x, int y)
 	minitile.addComponent<TileComponent>(x, y, 32, 32, id);//png width and height
 	minitile.addGroup(groupMinigames);
 }
+

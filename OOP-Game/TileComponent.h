@@ -24,7 +24,7 @@ public:
 		tileRect.w = w;
 		tileRect.h = h;
 		tileID = id;
-
+		
 		switch (tileID)
 		{
 		case 0:
@@ -42,6 +42,7 @@ public:
 		default:
 			break;
 		}
+		
 	}
 
 	void init() override

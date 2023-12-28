@@ -7,6 +7,7 @@ Map::Map()
 }
 Map::~Map()
 {
+	
 }
 
 void Map::loadMap(std::string filepath, int sizeX, int sizeY, int xpos, int ypos)
