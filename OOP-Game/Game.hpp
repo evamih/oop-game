@@ -1,5 +1,4 @@
 #pragma once
-
 #include <iostream>
 #include "SDL.h" 
 #include <iostream>
@@ -7,11 +6,14 @@
 
 class ColliderComponent;
 
+class Menu;
+
 class Game
 {
 private:
 	SDL_Window* window;
 	bool isRunning;
+	
 
 public:
 	static SDL_Renderer* renderer;
@@ -31,5 +33,7 @@ public:
 	void clean();
 	bool running();
 	void minigameBackground(int id, int x, int y);
+	void initMenu();
+	void runMenu();
 };
 

@@ -4,6 +4,7 @@
 #include "Components.h"
 #include "Vector2D.h"
 #include "Collision.h"
+#include "Menu.hpp"
 
 
 Map* map;
@@ -15,10 +16,14 @@ std::string Game::gameState = "mainGameState";
 
 std::vector<ColliderComponent*> Game::colliders;
 
+Menu mainMenu;
+
 auto& player(manager.addEntity());
 auto& wall(manager.addEntity());
 auto& door1(manager.addEntity());
 auto& door2(manager.addEntity());
+auto& button1(manager.addEntity());
+auto& button2(manager.addEntity());
 
 enum groupLabels : std::size_t
 {
@@ -26,8 +31,37 @@ enum groupLabels : std::size_t
 	groupPlayers,
 	groupDoors,
 	groupColliders,
-	groupMinigames
+	groupMinigames,
+	groupMenu
 };
+
+void Game::initMenu() {
+	mainMenu.addButton(100, 100);
+	mainMenu.addButton(100, 200);
+}
+
+void Game::runMenu() {
+	bool inMenu = true;
+
+	while (inMenu) {
+		SDL_Event menuEvent;
+		while (SDL_PollEvent(&menuEvent)) {
+			if (menuEvent.type == SDL_QUIT) {
+				isRunning = false;
+				inMenu = false;
+			}
+			else if (menuEvent.type == SDL_MOUSEBUTTONDOWN) {
+				int mouseX, mouseY;
+				SDL_GetMouseState(&mouseX, &mouseY);
+				int selectedButton = mainMenu.handleMouseClick(mouseX, mouseY);
+			}
+		}
+
+		SDL_RenderClear(renderer);
+		SDL_RenderPresent(renderer);
+	}
+}
+
 
 void Game::init(const char* title, int xPos, int yPos, int width, int height, bool fullscreen)
 {
@@ -64,10 +98,13 @@ void Game::init(const char* title, int xPos, int yPos, int width, int height, bo
 		isRunning  = false;
 	 }
 
+	initMenu();
+	runMenu();
 
 	map = new Map();
 	minimap = new Map();
 	Map::loadMap("assets/ground/map16x16.map", 16, 16, 0, 0);
+
 
 	player.addComponent<TransformComponent>(0.0f, 0.0f);
 	//player.addComponent<SpriteComponent>("assets/boyplayer64x64.png");
@@ -76,6 +113,7 @@ void Game::init(const char* title, int xPos, int yPos, int width, int height, bo
 	player.addComponent<KeyboardController>();
 	player.addComponent<ColliderComponent>("player");
 	player.addGroup(groupPlayers);
+
 
 	/*wall.addComponent<TransformComponent>(800.0f, 800.0f, 40, 80, 2);
 	wall.addComponent<SpriteComponent>("assets/ground/graytile.png");
@@ -91,6 +129,14 @@ void Game::init(const char* title, int xPos, int yPos, int width, int height, bo
 	door2.addComponent<SpriteComponent>("assets/door.png");
 	door2.addComponent<ColliderComponent>("door2");
 	door2.addGroup(groupDoors);
+
+	button1.addComponent<TransformComponent>(100.0f, 100.0f, 50, 30, 2);
+	button1.addComponent<SpriteComponent>("assets/playButton.png");
+	button1.addGroup(groupMenu);
+
+	button2.addComponent<TransformComponent>(100.0f, 200.0f, 50, 30, 2);
+	button2.addComponent<SpriteComponent>("assets/creditsButton.png");
+	button2.addGroup(groupMenu);
 
 	//space between walls/doors has to be bigger than the player
 }
@@ -175,12 +221,13 @@ auto& tiles(manager.getGroup(groupMap));
 auto& players(manager.getGroup(groupPlayers));
 auto& doors(manager.getGroup(groupDoors));
 auto& minigame(manager.getGroup(groupMinigames));
+auto& menu(manager.getGroup(groupMenu));
 
 void Game::render()
 {
 	SDL_RenderClear(renderer);
 
-	for (auto& t : tiles) 
+	for (auto& t : tiles)
 	{
 		t->draw();
 	}
@@ -195,6 +242,10 @@ void Game::render()
 	for (auto& m : minigame)
 	{
 		m->draw();
+	}
+	for (auto& mm : menu)
+	{
+		mm->draw();
 	}
 	
 	SDL_RenderPresent(renderer);
