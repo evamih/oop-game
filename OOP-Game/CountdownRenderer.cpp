@@ -45,6 +45,15 @@ void CountdownRenderer::loadDigits()
 void CountdownRenderer::drawCountdownBox()
 {
 	TextureManager::draw(timerBox, src, dest);
+		SDL_Rect tmpsrc, tmpdest;
+		tmpsrc.x = tmpsrc.y = 0;
+		tmpsrc.w  = tmpdest.w = 13;
+		tmpsrc.h  = tmpdest.h = 28;
+
+		tmpdest.x = tmpdest.y = 20;
+		tmpdest.x = tmpdest.y = 20;
+
+		TextureManager::draw(timerDigits[2], tmpsrc, tmpdest);
 }
 
 void CountdownRenderer::drawCountdown(int minutes, int seconds)
