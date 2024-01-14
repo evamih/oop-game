@@ -2,3 +2,4 @@ C:\MyFolder\Git\oop-game\OOP-Game\Debug\OOP-Game.exe
 C:\Users\sergiu\OneDrive\Documents\GitHub\oop-game\OOP-Game\Debug\OOP-Game.exe
 C:\Users\Eva\Desktop\facultate\ANUL 2\proiect POO\oop-game\OOP-Game\Debug\OOP-Game.exe
 C:\Users\serba\OneDrive\Desktop\anul 2\proiect_poo\oop-game\OOP-Game\Debug\OOP-Game.exe
+D:\ANUL 2\POO\GAME\oop-game\OOP-Game\Debug\OOP-Game.exe
