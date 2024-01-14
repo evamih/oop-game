@@ -22,7 +22,7 @@ void Map::loadMap(std::string filepath, int sizeX, int sizeY, int xpos, int ypos
 		for (int x = xpos; x < sizeX+xpos; x++)
 		{
 			mapFile.get(tile);
-			Game::addTile(atoi(&tile), x * 64, y * 64); //width*2, height*2
+			Game::addTile(atoi(&tile), x * 32, y * 32); //width*2, height*2
 			mapFile.ignore();
 		}
 	}

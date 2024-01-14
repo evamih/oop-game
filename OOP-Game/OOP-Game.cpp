@@ -13,7 +13,7 @@ int main(int argc, const char* argv[])
 
 	game = new Game;
 
-	game->init("Test", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1024, 1024, false); //size > tileSize * tileNr * 2;
+	game->init("Test", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1280, 800, false); //size > tileSize * tileNr * 2;
 
 	while (game->running())
 	{

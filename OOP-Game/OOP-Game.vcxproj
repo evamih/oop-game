@@ -130,15 +130,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Button.cpp" />
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="ECS.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Map.cpp" />
+    <ClCompile Include="Minimap.cpp" />
     <ClCompile Include="OOP-Game.cpp" />
     <ClCompile Include="TextureManager.cpp" />
     <ClCompile Include="Vector2D.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Animation.h" />
+    <ClInclude Include="Button.h" />
     <ClInclude Include="ColliderComponent.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="Components.h" />
@@ -146,6 +150,10 @@
     <ClInclude Include="Game.hpp" />
     <ClInclude Include="KeyboardController.h" />
     <ClInclude Include="Map.hpp" />
+    <ClInclude Include="MenuController.h" />
+    <ClInclude Include="Minimap.h" />
+    <ClInclude Include="Mouse.h" />
+    <ClInclude Include="MouseController.h" />
     <ClInclude Include="TileComponent.h" />
     <ClInclude Include="TransformComponent.h" />
     <ClInclude Include="SpriteComponent.h" />

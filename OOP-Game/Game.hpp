@@ -11,14 +11,17 @@ class Game
 {
 private:
 	SDL_Window* window;
-	bool isRunning;
+	
 
 public:
+	static const char* charTexFile;
 	static SDL_Renderer* renderer;
 	static SDL_Event event;
 	static std::vector<ColliderComponent*> colliders; //lista de colliders initializate
 	static std::string gameState;
 	static void addTile(int id, int x, int y);
+	static void minigameBackground(int id, int x, int y);
+	bool isRunning;
 
 	//Game();
 	//~Game();
@@ -30,6 +33,6 @@ public:
 	void render();
 	void clean();
 	bool running();
-	void minigameBackground(int id, int x, int y);
+	//void minigameBackground(int id, int x, int y);
 };
 

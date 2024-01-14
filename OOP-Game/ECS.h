@@ -7,6 +7,10 @@
 #include <bitset>
 #include <array>
 
+#include "Mouse.h"
+
+class Mouse;
+
 class Component;
 class Entity;
 class Manager;
@@ -42,6 +46,7 @@ public:
 
 	virtual void init() {} //functions that are going to be overridden
 	virtual void update() {}
+	virtual void updateButton(Mouse& mouse, std::string tag) {}
 	virtual void draw() {}
 
 	virtual ~Component() {}
@@ -59,6 +64,7 @@ private:
 	GroupBitSet groupBitSet;
 
 public:
+	std::string tag;
 	Entity(Manager& memberManager) : manager(memberManager){}
 
 	void update()
@@ -70,6 +76,12 @@ public:
 	{
 		for (auto& c : components) c->draw();
 	}
+
+	void updateButton(Mouse& mouse, std::string tag)
+	{
+		for (auto& c : components) c->updateButton(mouse, tag);
+	}
+
 	bool isActive()
 	{
 		return active;
@@ -110,7 +122,8 @@ public:
 
 	}
 
-	template<typename T> T& getComponent() const
+	template<typename T> 
+	T& getComponent() const
 	{
 		auto ptr(componentArray[getComponentTypeID<T>()]);
 		return *static_cast<T*>(ptr);
@@ -133,6 +146,11 @@ public:
 	void draw()
 	{
 		for (auto& e : entities) e->draw();
+	}
+
+	void updateButton(Mouse& mouse, std::string tag)
+	{
+		for (auto& e : entities) e->updateButton(mouse, tag);
 	}
 
 	void refresh() //removes entities if they are not active
@@ -171,6 +189,15 @@ public:
 		Entity* e = new Entity(*this);
 		std::unique_ptr<Entity> uPtr{ e }; //assign unique pointer to each new entity
 		entities.emplace_back(std::move(uPtr)); //add to entity list
+		return *e;
+	}
+
+	Entity& addEntity(std::string t)
+	{
+		Entity* e = new Entity(*this);
+		std::unique_ptr<Entity> uPtr{ e }; //assign unique pointer to each new entity
+		entities.emplace_back(std::move(uPtr)); //add to entity list
+		e->tag = t;
 		return *e;
 	}
 };

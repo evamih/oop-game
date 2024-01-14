@@ -12,7 +12,7 @@ public:
 
 	int height = 64;
 	int width = 64;
-	int scale = 2;
+	int scale = 1;
 
 	int speed = 3;
 
@@ -33,13 +33,13 @@ public:
 		position.y = y;
 	}
 
-	TransformComponent(float x, float y, int h, int w, int scale)
+	TransformComponent(float x, float y, int h, int w, int sc)
 	{
 		position.x = x;
 		position.y = y;
 		height = h;
 		width = w;
-		scale = scale;
+		scale = sc;
 	}
 
 	void init() override

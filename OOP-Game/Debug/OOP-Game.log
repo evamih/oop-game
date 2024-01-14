@@ -1,4 +1,16 @@
 ﻿  Collision.cpp
+C:\Users\Eva\Desktop\facultate\ANUL 2\proiect POO\oop-game\OOP-Game\MouseController.h(27,27): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  (compiling source file 'Collision.cpp')
+  
+C:\Users\Eva\Desktop\facultate\ANUL 2\proiect POO\oop-game\OOP-Game\MouseController.h(28,27): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  (compiling source file 'Collision.cpp')
+  
   Game.cpp
+C:\Users\Eva\Desktop\facultate\ANUL 2\proiect POO\oop-game\OOP-Game\MouseController.h(27,27): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  (compiling source file 'Game.cpp')
+  
+C:\Users\Eva\Desktop\facultate\ANUL 2\proiect POO\oop-game\OOP-Game\MouseController.h(28,27): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  (compiling source file 'Game.cpp')
+  
   Generating Code...
-  OOP-Game.vcxproj -> C:\Users\sergiu\OneDrive\Documents\GitHub\oop-game\OOP-Game\Debug\OOP-Game.exe
+  OOP-Game.vcxproj -> C:\Users\Eva\Desktop\facultate\ANUL 2\proiect POO\oop-game\OOP-Game\Debug\OOP-Game.exe
