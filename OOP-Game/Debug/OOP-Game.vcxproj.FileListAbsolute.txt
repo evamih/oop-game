@@ -1,2 +1,5 @@
 C:\MyFolder\Git\oop-game\OOP-Game\Debug\OOP-Game.exe
 C:\Users\sergiu\OneDrive\Documents\GitHub\oop-game\OOP-Game\Debug\OOP-Game.exe
+C:\Users\Eva\Desktop\facultate\ANUL 2\proiect POO\oop-game\OOP-Game\Debug\OOP-Game.exe
+C:\Users\serba\OneDrive\Desktop\anul 2\proiect_poo\oop-game\OOP-Game\Debug\OOP-Game.exe
+C:\Users\sergiu\OneDrive\Desktop\Cursuri\POO\OOP_Project\oop-game-06c832edd5b18134c56a07b0a57d0f22b6bf542b\oop-game-06c832edd5b18134c56a07b0a57d0f22b6bf542b\OOP-Game\Debug\OOP-Game.exe

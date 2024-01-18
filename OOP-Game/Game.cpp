@@ -1,11 +1,35 @@
 #include "Game.hpp"
 #include "Map.hpp"
-#include "CountdownRenderer.h"
+#include "Countdown.h"
+#include "TextureManager.hpp"
+#include "Components.h"
+#include "Vector2D.h"
+#include "Collision.h"
+
 
 Map* map;
+Map* minimap;
+Manager manager;
+Countdown* countdown;
 SDL_Renderer* Game::renderer = nullptr;
+SDL_Event Game::event;
+std::string Game::gameState = "mainGameState";
 
-CountdownRenderer* _countdown;
+std::vector<ColliderComponent*> Game::colliders;
+
+auto& player(manager.addEntity());
+auto& wall(manager.addEntity());
+auto& door1(manager.addEntity());
+auto& door2(manager.addEntity());
+
+enum groupLabels : std::size_t
+{
+	groupMap,
+	groupPlayers,
+	groupDoors,
+	groupColliders,
+	groupMinigames
+};
 
 void Game::init(const char* title, int xPos, int yPos, int width, int height, bool fullscreen)
 {
@@ -34,23 +58,54 @@ void Game::init(const char* title, int xPos, int yPos, int width, int height, bo
 			std::cout << "Renderer created!\n";
 		}
 
-		mTimer = Timer::Instance();
 
 		isRunning = true;
-	}
+	 }
 	else
-	{
-		isRunning = false;
-	}
+	 {
+		isRunning  = false;
+	 }
 
 
-	_countdown = new CountdownRenderer();
 	map = new Map();
+	minimap = new Map();
+	Map::loadMap("assets/ground/map16x16.map", 16, 16, 0, 0);
+
+	countdown = new Countdown();
+
+	player.addComponent<TransformComponent>(0.0f, 0.0f);
+	//player.addComponent<SpriteComponent>("assets/boyplayer64x64.png");
+	//player.addComponent<SpriteComponent>("assets/caraplayer64x64.png");
+	player.addComponent<SpriteComponent>("assets/girlplayer64x64.png");
+	player.addComponent<KeyboardController>();
+	player.addComponent<ColliderComponent>("player");
+	player.addGroup(groupPlayers);
+
+	/*wall.addComponent<TransformComponent>(800.0f, 800.0f, 40, 80, 2);
+	wall.addComponent<SpriteComponent>("assets/ground/graytile.png");
+	wall.addComponent<ColliderComponent>("wall");
+	wall.addGroup(groupMap);*/
+
+	door1.addComponent<TransformComponent>(256.0f, 64.0f, 64, 64, 2);
+	door1.addComponent<SpriteComponent>("assets/door.png");
+	door1.addComponent<ColliderComponent>("door1");
+	door1.addGroup(groupDoors);
+
+	door2.addComponent<TransformComponent>(900.0f, 384.0f, 64, 64, 2);
+	door2.addComponent<SpriteComponent>("assets/door.png");
+	door2.addComponent<ColliderComponent>("door2");
+	door2.addGroup(groupDoors);
+
+	//space between walls/doors has to be bigger than the player
+}
+
+void Game::openWindow()
+{
+	std::cout << "open window" << std::endl;
 }
 
 void Game::handleEvents()
 {
-	SDL_Event event;
 	SDL_PollEvent(&event);
 
 	switch (event.type)
@@ -58,57 +113,151 @@ void Game::handleEvents()
 	case SDL_QUIT:
 		isRunning = false;
 		break;
-
 	default:
-		break;
+		break; 
 	}
+}
+/*
+int countdown(float time)
+{
+	Timer * _Timer = Timer::Instance();
+	_Timer->TimeScale(1.0f);
+	_Timer->Update();
+
+	float deltaTime = _Timer->DeltaTime();
+//	float time = (float)(mins*60) + (float)secs;
+	if ((deltaTime - (int)deltaTime >= 0.984f) && time > 0.0f )
+	{
+		time -= 1.0f;
+	}
+	else if (time <= 0.0f)
+	{
+		_Timer->Reset();
+		return -1;
+	}
+	else
+	{
+		std::cout << "Time: " << time << std::endl;
+	}
+
+	return 1;
+	//std::cout << _Timer->DeltaTime() << std::endl;
+	//std::cout << _Timer->startTicks() << std::endl;
+	//std::cout << _Timer->DeltaTime() << std::endl;
+	//std::cout << _Timer->DeltaTime() << std::endl;
+	//std::cout << _Timer->DeltaTime() << std
+}
+*/
+void startMiniGame()
+{
+	minimap->FilePath="assets/ground/map10x10.map";
+	minimap->loadMap(minimap->FilePath, 10, 10, 3, 3);
+
+	
+	//if (Game::event.type == SDL_KEYDOWN)
+	//{
+	//	if(Game::event.key.keysym.sym  == SDLK_x)
+	//		Map::loadMap("assets/ground/map10x10tiles.map", 10, 10, 3, 3);
+	//		// destroy window !!
+	//}
+
+	//Game::gameState = "mainGameState";
+	//std::cout << Game::gameState << std::endl;
+	// collision = false
+}
+
+void stopMiniGame()
+{
+	minimap->~Map();
+
+	Map::loadMap("assets/ground/map16x16.map", 16, 16, 0, 0);
+	
 }
 
 void Game::update()
 {
+	manager.refresh();
+	manager.update();
 
+	countdown->timer->Update();
+
+	if (countdown->getIsRunning())
+	{
+		countdown->update();
+		std::cout << "Time: " << (countdown->getTimeLeft()) << std::endl;
+	}
+	else if (countdown->getIsFinished())
+	{
+		countdown->reset();
+	}
+
+	for (auto cc : colliders) 
+	{
+		Collision::AABB(player.getComponent<ColliderComponent>(), *cc);
+		if (Collision::AABB(player.getComponent<ColliderComponent>(), *cc) && cc->tag == "door1") //door1 as an example
+		{
+			//player.addComponent<TransformComponent>().velocity * -1;
+			if(gameState == "mainGameState")
+			{
+				startMiniGame();
+				gameState = "miniGameState";
+				countdown->start(300.0f);
+				countdown->loadRects({ 100, 100, 64, 32 }, 2.0f);
+			}
+//			std::cout << gameState << std::endl; 
+
+		}
+	}
+	if(gameState == "miniGameState")
+	{
+		if (Game::event.type == SDL_KEYDOWN)
+		{
+			if ((Game::event.key.keysym.sym == SDLK_x))
+			{
+				stopMiniGame();
+				gameState = "mainGameState";
+				countdown->reset();
+			}
+		}
+	}
 }
+
+auto& tiles(manager.getGroup(groupMap));
+auto& players(manager.getGroup(groupPlayers));
+auto& doors(manager.getGroup(groupDoors));
+auto& minigame(manager.getGroup(groupMinigames));
 
 void Game::render()
 {
 	SDL_RenderClear(renderer);
-	map->drawMap();
-	this->countdown();
-	SDL_RenderPresent(renderer);
-}
 
-// ------------- Countdown zone -----------------
-
-void Game::countdown() {
-
-	mTimer->Update();
-	
-	int secondsLeft=0;
-	int minutesLeft=0;
-
-	_countdown->drawCountdownBox();
-	const int initialTime = 300;
-	if ((mTimer->DeltaTime() - (int)(mTimer->DeltaTime())) >= 0.984f) {
-
-		secondsLeft = initialTime - (int)(mTimer->DeltaTime());
-		minutesLeft = secondsLeft / 60;
-		secondsLeft %= 60; 
-
-		_countdown->drawCountdown(minutesLeft, secondsLeft);
-		printf("%i : %i\n", minutesLeft, secondsLeft);
-
+	for (auto& t : tiles) 
+	{
+		t->draw();
 	}
+	for (auto& d : doors)
+	{
+		d->draw();
+	}
+	for (auto& p : players)
+	{
+		p->draw();
+	}
+	for (auto& m : minigame)
+	{
+		m->draw();
+	}
+	
+	countdown->render();
+
+	SDL_RenderPresent(renderer);
 
 }
-
-//-------------------------------------------
 
 void Game::clean()
 {
 	SDL_DestroyWindow(window);
 	SDL_DestroyRenderer(renderer);
-	Timer::Release();
-	mTimer = NULL;
 	SDL_Quit();
 	std::cout << "Game cleaned!\n";
 }
@@ -117,3 +266,18 @@ bool Game::running()
 {
 	return isRunning;
 }
+
+void Game::addTile(int id, int x, int y)
+{
+	auto& tile(manager.addEntity());
+	tile.addComponent<TileComponent>(x, y, 32, 32, id);//png width and height
+	tile.addGroup(groupMap);
+}
+
+void Game::minigameBackground(int id, int x, int y)
+{
+	auto& minitile(manager.addEntity());
+	minitile.addComponent<TileComponent>(x, y, 32, 32, id);//png width and height
+	minitile.addGroup(groupMinigames);
+}
+

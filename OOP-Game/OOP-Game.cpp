@@ -10,10 +10,10 @@ int main(int argc, const char* argv[])
 
 	Uint32 frameStart;
 	int frameTime;
-	
+
 	game = new Game;
 
-	game->init("Test", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 640, 640, false);
+	game->init("Test", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1024, 768, false); //size > tileSize * tileNr * 2;
 
 	while (game->running())
 	{
@@ -30,6 +30,7 @@ int main(int argc, const char* argv[])
 			SDL_Delay(frameDelay - frameTime);
 		}
 	}
+
 	game->clean();
 
 	return 0;
