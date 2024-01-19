@@ -117,12 +117,12 @@ public:
 			isSelected = true;
 			srcRect.x = 52;
 			if (tag == "startButton")
-			{
+			{	
 				if (Game::event.type == SDL_MOUSEBUTTONDOWN)
 				{
 					if (SDL_BUTTON_LEFT == Game::event.button.button)
 					{
-						Game::gameState = "menu2";
+						Game::gameState = "storyState";
 					}
 				}
 			}

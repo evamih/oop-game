@@ -1,3 +1,4 @@
+#pragma once
 #include <vector>
 #include "Question.hpp"
 #include "Countdown.h"
@@ -5,7 +6,6 @@
 class Minigame
 {
 private:
-	std::vector<Question*> questions;
 	int questionIdx = 0;
 	SDL_Event eve;
 	int rightAnswersCount = 0;
@@ -13,6 +13,7 @@ private:
 	Label* labelGameOver;
 	SDL_Color white = { 255, 255, 255, 255 };
 public:
+	std::vector<Question*> questions;
 	Countdown countdown;
 
 public:
@@ -25,8 +26,8 @@ public:
 		{
 			questions.push_back(new Question(q, m, e, xpos, ypos));
 		}
-		labelCompleted = new Label(xpos+50, ypos+120, "COMPLETED", white, 20);
-		labelGameOver = new Label(xpos + 50, ypos + 120, "GAME OVER", white, 20);
+		labelCompleted = new Label(xpos+ 350, ypos+220, "COMPLETED", white, 30);
+		labelGameOver = new Label(xpos + 350, ypos + 220, "GAME OVER", white, 30);
 	}
 
 	void update()
@@ -51,7 +52,11 @@ public:
 	}
 
 	void draw()
-	{
+	{	
+		if (countdown.getTimeLeft() <= 0.0f)
+		{
+			labelGameOver->draw();
+		}
 		if (questionIdx - rightAnswersCount > 2)
 		{
 			labelGameOver->draw();
