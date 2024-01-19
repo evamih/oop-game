@@ -10,8 +10,12 @@ public:
 	bool isSelected = false;
 
 	Button();
+	Button(SDL_Texture* texture, int xpos, int ypos);
+	Button(SDL_Texture* texture, int xpos, int ypos, bool);
 	
 	void update(Mouse&);
+	void update(Mouse&, int);
+	void update(Mouse&, bool);
 	void draw();
 
 };

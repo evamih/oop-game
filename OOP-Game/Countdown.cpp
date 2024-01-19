@@ -34,6 +34,7 @@ void Countdown::start(float time) {
 void Countdown::update() {
 
 	if (isRunning) {
+		
 		timeLeft -= 0.01666f;
 		if (timeLeft <= 0.0f) {
 			isRunning = false;
@@ -89,8 +90,8 @@ void Countdown::loadRects(SDL_Rect dest, float scale) {
 
 }
 
-void Countdown::render() {
-	
+void Countdown::draw() {
+
 	TextureManager::draw(boxTexture, srcRectBox, destRectBox, SDL_FLIP_NONE);
 
 	TextureManager::draw(digitsTexture[(int)timeLeft / 60 / 10], srcRectDigits, destRectDigits[0], SDL_FLIP_NONE);

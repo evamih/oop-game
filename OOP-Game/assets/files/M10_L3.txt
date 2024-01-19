@@ -1,0 +1,7 @@
+How can businesses use programming to develop and distribute digital content@By creating digital art that can be used and enjoyed by end users@By creating channels and automated processes to distribute content@By creating applications that are used by people to interact with@All the rest@3
+Name the two basic instructions used in programming@If Clause and Loops@Compiler and interpreter@SQL and Query@Classes and Graphs@0
+Select an example of two popular programming languages@TTCC and Marvel@A-Star and D--@Python and Java@Silver and Crast@2
+What are the main two most basic concepts used in programming@APIs and HTTPS requests@algorithms and data structures@Big Data and Machine Learning@classes and objects@1
+What does a programmer do@design and develop software by using algorithms and data structures in a programming language@create programming languages@create problems that can only be solved using software@makes sure that IT systems are running and are up to date in an organization@0
+What is an algorithm@An algorithm is a step-by-step process that defines a set of instructions@An algorithm is an educated guess of what a system will return as an output@An algorithm is a recipe on how to create an application@An algorithm is a list of to-do’s that a programmer needs to accomplish at work@0
+What can be used as data type in programming@all the rest@numbers@letters@words@0

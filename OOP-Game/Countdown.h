@@ -2,11 +2,12 @@
 
 #include "Timer.h"
 #include "TextureManager.hpp"
+#include "ECS.h"
 #include <string>
 #include <thread>
 #include <chrono>
 
-class Countdown
+class Countdown : public Component
 {
 private:
 	float timeLeft;
@@ -31,7 +32,7 @@ public:
 
 	void loadTextures();
 	void loadRects(SDL_Rect dest, float scale);
-	void render();
+	void draw() override;
 
 	float getTimeLeft();
 	bool getIsRunning();

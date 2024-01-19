@@ -1,0 +1,7 @@
+What role does backend development play?@To create the server-side logic of a web app@To design the web app@To create the content of the web app@To create the user experience of the web app@0
+What is a content management system?@A programming language@A tool deploy websites@An app used to create, manage, and modify content for a website@An web framework@2
+What is the database used for?@Create the website@Store websites@Create data for the website@Store data that is used for the website@3
+What is a web framework?@A tool to design websites@A collection of tools and libraries used to create a website@A user interface@A type of web server@1
+Which of the following is NOT a core technology of web development?@JavaScript@HTML@Mobile development@CSS@2
+What is a content management system?@A tool used to create content for a website@A programming language to create websites@A framework created to build web apps@None of the answers@3
+What is a domain name?@A name used to identify a web page@An address used to find a website@A name used for a web server@An unique name that identifies a website on the internet@3

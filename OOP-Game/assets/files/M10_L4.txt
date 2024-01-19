@@ -1,0 +1,7 @@
+Which of the following is NOT an advantage of object-oriented programming?@Reusability@Encapsulation@Inheritance@Readability@0
+Which of the following is a data structure?@Note@Block@Honeycomb@Que@3
+Which one is NOT a common class of algorithms?@Searching algorithms@Sorting algorithms@Guessing algorithms@Traversal algorithms@2
+Which one is NOT an example of architecture?@Microservices architecture@Client-server architecture@Layered architecture@Fast-response architecture@0
+Which one is NOT a sorting algorithm?@Merge sort@Quick sort@Fire sort@Bubble sort@2
+Which of the following is a data structure?@Honeycomb@Block@Note@Que@0
+Which one is NOT a sorting algorithm?@Bubble sort@Fire sort@Quick sort@Merge sort@1

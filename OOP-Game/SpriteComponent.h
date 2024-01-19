@@ -47,6 +47,16 @@ public:
 		setTexture(filepath);
 	}
 
+	SpriteComponent(const char* filepath, bool isAnimated, int time) {
+		animated = isAnimated;
+		Animation f1 = Animation(0, 2, time);
+
+		animations.emplace("f1", f1);
+
+		play("f1");
+
+		setTexture(filepath);
+	}
 	//SpriteComponent(const char* filepath, std::string t)
 	//{
 	//	/*srcRect.y = srcy;

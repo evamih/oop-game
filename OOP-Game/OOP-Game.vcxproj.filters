@@ -45,6 +45,12 @@
     <ClCompile Include="Button.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Timer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Countdown.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.hpp">
@@ -83,6 +89,12 @@
     <ClInclude Include="TileComponent.h">
       <Filter>Header Files\ECS</Filter>
     </ClInclude>
+    <ClInclude Include="Label.hpp">
+      <Filter>Header Files\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="Question.hpp">
+      <Filter>Header Files\ECS</Filter>
+    </ClInclude>
     <ClInclude Include="Animation.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -99,6 +111,18 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Button.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Minigame.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CsvManager.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Timer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Countdown.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
