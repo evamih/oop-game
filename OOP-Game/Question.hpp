@@ -51,7 +51,7 @@ public:
 
 		correctAnswerIdx = std::stoi(row[5]);
 
-		confirmButton = new Button(confirmTexture, xpos + 850, ypos + 700, false);
+		confirmButton = new Button(confirmTexture, xpos + 840, ypos + 715, false);
 	}
 
 	void draw() override
@@ -88,7 +88,7 @@ public:
 			buttons[selectedAnswerIdx]->srect.x = 17;
 		}
 
-		confirmButton->update(mouse, 1);
+		confirmButton->update(mouse, true);
 
 		if (confirmButton->isSelected && event.type == SDL_MOUSEBUTTONDOWN)
 		{

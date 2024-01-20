@@ -21,6 +21,16 @@ int x, y;
 
 std::vector<ColliderComponent*> Game::colliders;
 
+auto& levelLabel1(manager.addEntity());
+auto& levelLabel2(manager.addEntity());
+auto& levelLabel3(manager.addEntity());
+auto& m9Label(manager.addEntity());
+auto& m10Label(manager.addEntity());
+
+auto& help1(manager.addEntity("help1"));
+auto& help2(manager.addEntity("help2"));
+
+
 auto& player(manager.addEntity());
 auto& mouse(manager.addEntity());
 auto& menu(manager.addEntity());
@@ -92,6 +102,7 @@ enum groupLabels : std::size_t
 	groupMini4,
 	groupMini5,
 	groupMini6,
+	groupHelp
 };
 
 void Game::init(const char* title, int xPos, int yPos, int width, int height, bool fullscreen)
@@ -132,6 +143,28 @@ void Game::init(const char* title, int xPos, int yPos, int width, int height, bo
 	if (TTF_Init() == -1) {
 		std::cout << "ERROR_TTF\n";
 	}
+
+	SDL_Color white = { 255, 255, 255, 255 };
+
+	levelLabel1.addComponent<Label>(40, 100, "LEVEL 1", white, 30);
+	levelLabel1.addGroup(groupMap1);
+	levelLabel2.addComponent<Label>(40, 100, "LEVEL 2", white, 30);
+	levelLabel2.addGroup(groupMap2);
+	levelLabel3.addComponent<Label>(40, 100, "LEVEL 3", white, 30);
+	levelLabel3.addGroup(groupMap3);
+
+	SDL_Color green = { 0,128,0,255 };
+	SDL_Color blue = { 0, 0, 128, 255 };
+
+	m9Label.addComponent<Label>(20, 800, "Licences", green, 20);
+	m9Label.addGroup(groupMap1);
+	m9Label.addGroup(groupMap2);
+	m9Label.addGroup(groupMap3);
+
+	m10Label.addComponent<Label>(20, 900, "Classical Programming", blue, 20, 300);
+	m10Label.addGroup(groupMap1);
+	m10Label.addGroup(groupMap2);
+	m10Label.addGroup(groupMap3);
 
 	player.addComponent<TransformComponent>(500.0f, 500.0f, 64, 64, 1.75f);
 	player.addComponent<SpriteComponent>("assets/animatiiLeo.png", true);
@@ -238,6 +271,7 @@ void Game::init(const char* title, int xPos, int yPos, int width, int height, bo
 
 	labelStory.addComponent<Label>(200, 400, "In a secret and isolated laboratory, there lived a mad scientist named Dr. Hackerstein. Known for his brilliance in the field of programming, as well as for his eccentricities, Dr. Hackerstein invented a hack that could control any electronic system in the world. Eccentric and malevolent, Hackerstein decided to use his discovery to subjugate the entire digital network, turning it into an extension of his own will. One day, Dr.Hackerstein mysteriously disappeared from his laboratory, leaving behind an encrypted message.Much later, it was revealed that the doctor had created a digital bomb, an explosive device threatening to destroy the entire digital network of the city. With your talent and programming experience, you find yourself in a race against time to save the city from the imminent explosion.Don't forget! With each passing second, the pressure on you and the city increases, placing you in imminent danger.", black, 16, 1200);
 
+
 	endLabel.addComponent<Label>(200, 400, "You've outwitted me this time... My digital empire crumbles, and my chaotic dreams are extinguished. The code of your skill has proven mightier than my darkest creation. Farewell to my malevolent aspirations, at least for now.....", black, 16, 1200);
 
 	wall1.addComponent<TransformComponent>(0.f, 0.f, 355, 270, 1.f);
@@ -254,6 +288,14 @@ void Game::init(const char* title, int xPos, int yPos, int width, int height, bo
 
 	wall4.addComponent<TransformComponent>(0.f, 0.f, 2000, 20, 1.f);
 	wall4.addComponent<ColliderComponent>("wall");
+
+	help1.addComponent<TransformComponent>(1000.f, 80.f, 20, 20, 1.f);
+	//help1.addComponent<SpriteComponent>("assets/assets2/checkButton.png");
+	help1.addGroup(groupHelp);
+
+	help2.addComponent<TransformComponent>(1140.f, 80.f, 20, 20, 1.f);
+	//help2.addComponent<SpriteComponent>("assets/assets2/checkButton.png");
+	help2.addGroup(groupHelp);
 
 	//wall5.addComponent<TransformComponent>(0.f, 1560.f, 50, 1600, 1.f);
 	//wall5.addComponent<ColliderComponent>("wall");
@@ -349,11 +391,12 @@ auto& mouses(manager.getGroup(groupMouse));
 auto& menus2(manager.getGroup(groupMenu2));
 auto& minigame1(manager.getGroup(groupMini1));
 auto& minigame2(manager.getGroup(groupMini2));
+auto& helpl1(manager.getGroup(groupHelp));
 
 void Game::update()
 {
 	if (gameState != "creditsState" && gameState != "storyState") {
-
+		
 
 		if (mini1->getScore() >= 5 && mini2->getScore() >= 5 && mini1->questions[6]->isCompleted() && mini2->questions[6]->isCompleted())
 		{
@@ -535,6 +578,10 @@ void Game::render()
 		{
 			m->draw();
 		}
+		for (auto& h : helpl1)
+		{
+			h->draw();
+		}
 		for (auto& p : players)
 		{
 			p->draw();
@@ -546,7 +593,6 @@ void Game::render()
 	}
 	else if (gameState == "mainGameState2")
 	{
-		std::cout << "!!!!\n";
 		for (auto& m : map2Group)
 		{
 			m->draw();
