@@ -143,7 +143,7 @@ public:
 					if (SDL_BUTTON_LEFT == Game::event.button.button)
 					{
 						Game::charTexFile = "assets/animatiiLeo.png";
-						Game::gameState = "mainGameState";
+						Game::gameState = "menu3";
 					}
 				}
 			}
@@ -154,12 +154,65 @@ public:
 					if (SDL_BUTTON_LEFT == Game::event.button.button)
 					{
 						Game::charTexFile = "assets/animatiiCleo.png";
+						Game::gameState = "menu3";
+					}
+				}
+			}
+			else if (tag == "licences")
+			{
+				if (Game::event.type == SDL_MOUSEBUTTONDOWN)
+				{
+					if (SDL_BUTTON_LEFT == Game::event.button.button)
+					{
+						Game::subject = "licences";
 						Game::gameState = "mainGameState";
 					}
 				}
 			}
-		}
+			else if (tag == "programming")
+			{
+				if (Game::event.type == SDL_MOUSEBUTTONDOWN)
+				{
+					if (SDL_BUTTON_LEFT == Game::event.button.button)
+					{
+						Game::subject = "programming";
+						Game::gameState = "mainGameState";
+					}
+				}
+			}
+			else if (tag == "bomb")
+			{
+				if (Game::event.type == SDL_MOUSEBUTTONDOWN)
+				{
+					if (SDL_BUTTON_LEFT == Game::event.button.button)
+					{
+						if (Game::count == 0)
+							Game::gameState = "endState";
+						else
+							Game::gameState = "endLast";
+					}
+				}
+			}
+			else if (tag == "yes")
+			{
+				if (Game::event.type == SDL_MOUSEBUTTONDOWN)
+				{
+					if (SDL_BUTTON_LEFT == Game::event.button.button)
+					{
+						if (Game::count == 0)
+						{
+							if (Game::subject == "licences")
+								Game::subject = "programming";
+							else if (Game::subject == "programming")
+								Game::subject = "licences";
 
+							Game::gameState = "mainGameState";
+							Game::second();
+						}
+					}
+				}
+			}
+		}
 		else
 		{
 			isSelected = false;

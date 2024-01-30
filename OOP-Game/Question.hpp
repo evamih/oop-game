@@ -9,6 +9,7 @@ class Question : public Component
 {
 private:
 	Label* question;
+	Label* check;
 	std::vector<Label*> answers;
 	Button* confirmButton;
 	std::vector<Button*> buttons;
@@ -37,21 +38,23 @@ public:
 		}
 			
 		SDL_Color green = { 0, 255, 0, 255 };
+		SDL_Color black = { 0, 0, 0, 255 };
 
-		question = new Label(xpos, ypos, row[0], green, 15, 936);
+		question = new Label(xpos, ypos, row[0], black, 26, 936);
 
-		answers.push_back(new Label(xpos + 100, ypos + 150, row[1], green, 12, 800));
+		answers.push_back(new Label(xpos + 100, ypos + 150, row[1], black, 20, 800));
 		buttons.push_back(new Button(buttonTexture, xpos, ypos + 150));
-		answers.push_back(new Label(xpos + 100, ypos + 250, row[2], green, 12, 800));
+		answers.push_back(new Label(xpos + 100, ypos + 250, row[2], black, 20, 800));
 		buttons.push_back(new Button(buttonTexture, xpos, ypos + 250));
-		answers.push_back(new Label(xpos + 100, ypos + 350, row[3], green, 12, 800));
+		answers.push_back(new Label(xpos + 100, ypos + 350, row[3], black, 20, 800));
 		buttons.push_back(new Button(buttonTexture, xpos, ypos + 350));
-		answers.push_back(new Label(xpos + 100, ypos + 450, row[4], green,12, 800));
+		answers.push_back(new Label(xpos + 100, ypos + 450, row[4], black, 20, 800));
 		buttons.push_back(new Button(buttonTexture, xpos, ypos + 450));
 
 		correctAnswerIdx = std::stoi(row[5]);
 
 		confirmButton = new Button(confirmTexture, xpos + 840, ypos + 715, false);
+
 	}
 
 	void draw() override
@@ -77,7 +80,6 @@ public:
 
 			if (b->isSelected && event.type == SDL_MOUSEBUTTONDOWN)
 			{
-
 				selectedAnswerIdx = idx;
 			}
 
@@ -98,6 +100,11 @@ public:
 			}
 		}
 
+	}
+
+	void erase()
+	{
+		complete = false;
 	}
 
 	bool isCompleted()

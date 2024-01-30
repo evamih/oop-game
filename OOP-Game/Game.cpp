@@ -16,7 +16,10 @@ Manager manager;
 SDL_Renderer* Game::renderer = nullptr;
 SDL_Event Game::event;
 std::string Game::gameState = "menu1";
+std::string Game::subject = "";
 const char* Game::charTexFile = "";
+int Game::count = 0;
+Label* check;
 int x, y;
 
 std::vector<ColliderComponent*> Game::colliders;
@@ -30,16 +33,22 @@ auto& m10Label(manager.addEntity());
 auto& help1(manager.addEntity("help1"));
 auto& help2(manager.addEntity("help2"));
 
-
 auto& player(manager.addEntity());
 auto& mouse(manager.addEntity());
 auto& menu(manager.addEntity());
 auto& startButton(manager.addEntity("startButton"));
+
 auto& creditsButton(manager.addEntity("creditsButton"));
 auto& credits(manager.addEntity());
+
 auto& menu2(manager.addEntity());
 auto& leoButton(manager.addEntity("leoButton"));
 auto& cleoButton(manager.addEntity("cleoButton"));
+
+auto& menu3(manager.addEntity());
+auto& licencesButton(manager.addEntity("licences"));
+auto& programmingButton(manager.addEntity("programming"));
+
 auto& labelCC(manager.addEntity());
 auto& map1(manager.addEntity());
 auto& map2(manager.addEntity());
@@ -60,8 +69,12 @@ auto& label4Credits(manager.addEntity());
 auto& label5Credits(manager.addEntity());
 auto& label6Credits(manager.addEntity());
 auto& label7Credits(manager.addEntity());
-
+auto& bomb(manager.addEntity("bomb"));
 auto& labelStory(manager.addEntity("story"));
+
+auto& label8(manager.addEntity());
+auto& yesButton(manager.addEntity("yes"));
+//auto& noButton(manager.addEntity("no"));
 
 auto& endLabel(manager.addEntity("end"));
 
@@ -76,8 +89,6 @@ auto& wall8(manager.addEntity());
 auto& wall9(manager.addEntity());
 auto& wall10(manager.addEntity());
 
-
-
 std::vector<std::string> quest;
 Minigame* mini1;
 Minigame* mini2;
@@ -90,6 +101,7 @@ enum groupLabels : std::size_t
 {
 	groupMenu,
 	groupMenu2,
+	groupMenu3,
 	groupMap1,
 	groupMap2,
 	groupMap3,
@@ -102,7 +114,8 @@ enum groupLabels : std::size_t
 	groupMini4,
 	groupMini5,
 	groupMini6,
-	groupHelp
+	groupHelp,
+	groupEnd
 };
 
 void Game::init(const char* title, int xPos, int yPos, int width, int height, bool fullscreen)
@@ -153,7 +166,7 @@ void Game::init(const char* title, int xPos, int yPos, int width, int height, bo
 	levelLabel3.addComponent<Label>(40, 100, "LEVEL 3", white, 30);
 	levelLabel3.addGroup(groupMap3);
 
-	SDL_Color green = { 0,128,0,255 };
+	SDL_Color green = { 30, 128, 0, 100 };
 	SDL_Color blue = { 0, 0, 128, 255 };
 
 	m9Label.addComponent<Label>(20, 800, "Licences", green, 20);
@@ -172,7 +185,7 @@ void Game::init(const char* title, int xPos, int yPos, int width, int height, bo
 	player.addComponent<ColliderComponent>("player");
 	player.addGroup(groupPlayers);
 
-	mouse.addComponent<TransformComponent>(0.0f, 0.0f, 44, 25, 1);
+	mouse.addComponent<TransformComponent>(0.0f, 0.0f, 46, 30, 1);
 	mouse.addComponent<MouseController>();
 	mouse.addComponent<SpriteComponent>("assets/assets2/mouse.png");
 	mouse.addGroup(groupMouse);
@@ -184,6 +197,18 @@ void Game::init(const char* title, int xPos, int yPos, int width, int height, bo
 	menu2.addComponent<TransformComponent>(0.f, 0.f, 768, 1024, 1.5f);
 	menu2.addComponent<SpriteComponent>("assets/assets2/leoCleo.png");
 	menu2.addGroup(groupMenu2);
+
+	menu3.addComponent<TransformComponent>(0.0f, 0.0f, 768, 1024, 1.5f);
+	menu3.addComponent<SpriteComponent>("assets/assets2/start.png");
+	menu3.addGroup(groupMenu3);
+
+	licencesButton.addComponent<TransformComponent>(340.0f, 400.0f, 31, 51, 4);
+	licencesButton.addComponent<SpriteComponent>("assets/leoBut.png");
+	licencesButton.addGroup(groupButtons);
+
+	programmingButton.addComponent<TransformComponent>(985.0f, 400.0f, 31, 51, 4);
+	programmingButton.addComponent<SpriteComponent>("assets/cleoBut.png");
+	programmingButton.addGroup(groupButtons);
 
 	startButton.addComponent<TransformComponent>(630.0f, 400.0f, 31, 51, 6);
 	startButton.addComponent<SpriteComponent>("assets/startBut.png");
@@ -213,7 +238,7 @@ void Game::init(const char* title, int xPos, int yPos, int width, int height, bo
 	map3.addGroup(groupMap3);
 
 	map3Light.addComponent<TransformComponent>(0.f, 0.f, 768, 1024, 1.5f);
-	map3Light.addComponent<SpriteComponent>("assets/assets2/level3_light.png");
+	map3Light.addComponent<SpriteComponent>("assets/assets2/level3_light.png", true, 1200);
 	map3Light.addGroup(groupMap3);
 
 	minigameBg.addComponent<TransformComponent>(0.f, 0.f, 768, 1024, 1.5f);
@@ -233,61 +258,78 @@ void Game::init(const char* title, int xPos, int yPos, int width, int height, bo
 	cleoButton.addComponent<SpriteComponent>("assets/cleoBut.png");
 	cleoButton.addGroup(groupButtons);
 
-	minigame1Col.addComponent<TransformComponent>(1.5 * 606.0f, 1.5 * 279.0f, 33, 33, 1.5f);
+	minigame1Col.addComponent<TransformComponent>(1.5 * 606.0f, 418.5f, 33, 33, 1.5f);
 	minigame1Col.addComponent<ColliderComponent>("mini1");
 	minigame1Col.addGroup(groupMap1);
 
 	minigame2Col.addComponent<TransformComponent>(1.5 * 606.0f, 694.0f, 33, 33, 1.5f);
 	minigame2Col.addComponent<ColliderComponent>("mini2");
 	minigame2Col.addGroup(groupMap1);
-
-	minigame3Col.addComponent<TransformComponent>(1.5 * 606.0f, 694.0f, 33, 33, 1.5f);
+	
+	minigame3Col.addComponent<TransformComponent>(1.5 * 606.0f, 550.0f, 33, 33, 1.5f);
 	minigame3Col.addComponent<ColliderComponent>("mini3");
 	minigame3Col.addGroup(groupMap2);
 
-	minigame4Col.addComponent<TransformComponent>(1.5 * 606.0f, 694.0f, 33, 33, 1.5f);
-	minigame4Col.addComponent<ColliderComponent>("mini4");
-	minigame4Col.addGroup(groupMap2);
-
-	minigame5Col.addComponent<TransformComponent>(1.5 * 606.0f, 694.0f, 33, 33, 1.5f);
-	minigame5Col.addComponent<ColliderComponent>("mini5");
-	minigame5Col.addGroup(groupMap3);
-
-	minigame6Col.addComponent<TransformComponent>(1.5 * 606.0f, 694.0f, 33, 33, 1.5f);
-	minigame6Col.addComponent<ColliderComponent>("mini6");
-	minigame6Col.addGroup(groupMap3);
+	bomb.addComponent<TransformComponent>(900.0f, 556.0f, 70, 33, 1.5f);
+	bomb.addComponent<SpriteComponent>("assets/cleoBut.png");
+	bomb.addGroup(groupButtons);
 
 	SDL_Color black = { 0, 0, 0, 255 };
 
+	label1Credits.addComponent<Label>(200, 200, "National University of Science and Technology Politehnica of Bucharest (NUSTPB)", black, 26, 900);
+	label2Credits.addComponent<Label>(200, 400, "Project carried out in accordance with the initiatives of the Erasmus+ programs", black, 20, 1200);
+	label4Credits.addComponent<Label>(200, 600, "Fostering Transversal Digital Competences in Higher Education", black, 20, 1200);
+	label5Credits.addComponent<Label>(200, 700, "Coordinating Professors: Mihail Caramihai, Daniel Chis", black, 20, 1200);
+	label6Credits.addComponent<Label>(200, 800, "Developed by: Mihai Eva-Elena, Serban Eva-Maria, Tomescu Robert-Iulian, Preda Sergiu-Adrian, Tomescu Adriana-Marinela", black, 20, 1200);
+	label7Credits.addComponent<Label>(200, 1000, "PRESS [ESC] TO EXIT", black, 20, 1200);
 
+	labelStory.addComponent<Label>(200, 400, "In a secret and isolated laboratory, there lived a mad scientist named Dr. Hackerstein. Known for his brilliance in the field of programming, as well as for his eccentricities, Dr. Hackerstein invented a hack that could control any electronic system in the world. Eccentric and malevolent, Hackerstein decided to use his discovery to subjugate the entire digital network, turning it into an extension of his own will. One day, Dr.Hackerstein mysteriously disappeared from his laboratory, leaving behind an encrypted message.Much later, it was revealed that the doctor had created a digital bomb, an explosive device threatening to destroy the entire digital network of the city. With your talent and programming experience, you find yourself in a race against time to save the city from the imminent explosion.Don't forget! With each passing second, the pressure on you and the city increases, placing you in imminent danger.", black, 20, 1200);
 
-	label1Credits.addComponent<Label>(200, 200, "National University of Science and Technology Politehnica of Bucharest (NUSTPB)", black, 20, 900);
-	label2Credits.addComponent<Label>(200, 400, "Project carried out in accordance with the initiatives of the Erasmus+ programs", black, 16, 1200);
-	label3Credits.addComponent<Label>(200, 500, "Gender, Digitalization, Green: Ensuring a Sustainable Future for All in Europe", black, 16, 1200);
-	label4Credits.addComponent<Label>(200, 600, "Fostering Transversal Digital Competences in Higher Education", black, 16, 1200);
-	label5Credits.addComponent<Label>(200, 700, "Coordinating Professors: Mihail Caramihai, Daniel Chis", black, 16, 1200);
-	label6Credits.addComponent<Label>(200, 800, "Developed by: Mihai Eva-Elena, Serban Eva-Maria, Tomescu Robert-Iulian, Preda Sergiu-Adrian, Tomescu Adriana-Marinela", black, 16, 1200);
-	label7Credits.addComponent<Label>(200, 1000, "PRESS [ESC] TO EXIT", black, 16, 1200);
+	endLabel.addComponent<Label>(200, 400, "You've outwitted me this time... My digital empire crumbles, and my chaotic dreams are extinguished. The code of your skill has proven mightier than my darkest creation. Farewell to my malevolent aspirations, at least for now.....", black, 20, 1200);
 
-	labelStory.addComponent<Label>(200, 400, "In a secret and isolated laboratory, there lived a mad scientist named Dr. Hackerstein. Known for his brilliance in the field of programming, as well as for his eccentricities, Dr. Hackerstein invented a hack that could control any electronic system in the world. Eccentric and malevolent, Hackerstein decided to use his discovery to subjugate the entire digital network, turning it into an extension of his own will. One day, Dr.Hackerstein mysteriously disappeared from his laboratory, leaving behind an encrypted message.Much later, it was revealed that the doctor had created a digital bomb, an explosive device threatening to destroy the entire digital network of the city. With your talent and programming experience, you find yourself in a race against time to save the city from the imminent explosion.Don't forget! With each passing second, the pressure on you and the city increases, placing you in imminent danger.", black, 16, 1200);
+	label8.addComponent<Label>(200, 600, "If you would like to play the other subject, press the button!", black, 20, 1200);
 
+	yesButton.addComponent<TransformComponent>(340.0f, 800.0f, 31, 51, 4);
+	yesButton.addComponent<SpriteComponent>("assets/leoBut.png");
+	yesButton.addGroup(groupButtons);
 
-	endLabel.addComponent<Label>(200, 400, "You've outwitted me this time... My digital empire crumbles, and my chaotic dreams are extinguished. The code of your skill has proven mightier than my darkest creation. Farewell to my malevolent aspirations, at least for now.....", black, 16, 1200);
+	//noButton.addComponent<TransformComponent>(985.0f, 200.0f, 31, 51, 4);
+	//noButton.addComponent<SpriteComponent>("assets/cleoBut.png");
+	//noButton.addGroup(groupButtons);
 
 	wall1.addComponent<TransformComponent>(0.f, 0.f, 355, 270, 1.f);
 	wall1.addComponent<ColliderComponent>("wall");
-	wall1.addComponent<SpriteComponent>("../assets/assets2/leoCleo.png");
+	wall1.addComponent<SpriteComponent>("assets/pink32.png");
 
 	wall2.addComponent<TransformComponent>(0.f, 0.f, 270, 871, 1.f);
 	wall2.addComponent<ColliderComponent>("wall");
-	wall2.addComponent<SpriteComponent>("../assets/assets2/leoCleo.png");
+	wall2.addComponent<SpriteComponent>("assets/pink32.png");
 
 	wall3.addComponent<TransformComponent>(0.f, 636.f, 500, 270, 1.f);
 	wall3.addComponent<ColliderComponent>("wall");
-	wall3.addComponent<SpriteComponent>("../assets/assets2/leoCleo.png");
+	wall3.addComponent<SpriteComponent>("assets/pink32.png");
 
 	wall4.addComponent<TransformComponent>(0.f, 0.f, 2000, 20, 1.f);
 	wall4.addComponent<ColliderComponent>("wall");
+	wall3.addComponent<SpriteComponent>("assets/pink32.png");
+
+
+	/*wall1.addGroup(groupMap1);
+	wall1.addGroup(groupMap2);
+	wall1.addGroup(groupMap3);
+
+	wall2.addGroup(groupMap1);
+	wall2.addGroup(groupMap2);
+	wall2.addGroup(groupMap3);
+
+	wall3.addGroup(groupMap1);
+	wall3.addGroup(groupMap2);
+	wall3.addGroup(groupMap3);
+
+	wall4.addGroup(groupMap1);
+	wall4.addGroup(groupMap2);
+	wall4.addGroup(groupMap3);*/
+
 
 	help1.addComponent<TransformComponent>(1000.f, 80.f, 20, 20, 1.f);
 	//help1.addComponent<SpriteComponent>("assets/assets2/checkButton.png");
@@ -309,29 +351,74 @@ void Game::init(const char* title, int xPos, int yPos, int width, int height, bo
 	wall8.addComponent<TransformComponent>(0.f, 0.f, 270, 355);
 	wall8.addComponent<ColliderComponent>("wall");*/
 
-
-
 	quest = CsvManager::readData("assets/files/M9_L3.txt");
-	mini1 = new Minigame(quest, 300, 250, mouseCollider, event);	
-	quest = CsvManager::readData("assets/files/M10_L3.txt");
-	mini2 = new Minigame(quest, 300, 250, mouseCollider, event);	
+	mini1 = new Minigame(quest, 300, 250, mouseCollider, event);
+
 	quest = CsvManager::readData("assets/files/M9_L4.txt");
-	mini3 = new Minigame(quest, 300, 250, mouseCollider, event);	
-	quest = CsvManager::readData("assets/files/M10_L4.txt");
-	mini4 = new Minigame(quest, 300, 250, mouseCollider, event);	
+	mini2 = new Minigame(quest, 300, 250, mouseCollider, event);
+
 	quest = CsvManager::readData("assets/files/M9_L5.txt");
-	mini5 = new Minigame(quest, 300, 250, mouseCollider, event);	
+	mini3 = new Minigame(quest, 300, 250, mouseCollider, event);
+
+	quest = CsvManager::readData("assets/files/M10_L3.txt");
+	mini4 = new Minigame(quest, 300, 250, mouseCollider, event);
+
+	quest = CsvManager::readData("assets/files/M10_L4.txt");
+	mini5 = new Minigame(quest, 300, 250, mouseCollider, event);
+
 	quest = CsvManager::readData("assets/files/M10_L5.txt");
 	mini6 = new Minigame(quest, 300, 250, mouseCollider, event);
 
-	std::cout << gameState << std::endl;
-
-	//space between walls/doors has to be bigger than the player
+	check = new Label(337 + 840, 270 + 715, "CHECK", green, 32, 800);
 }
 
 void Game::openWindow()
 {
 	std::cout << "open window" << std::endl;
+}
+
+void Game::second()
+{
+	for (int i = 0; i < 7; i++)
+	{
+		mini1->clearQ();
+		mini2->clearQ();
+		mini3->clearQ();
+		mini4->clearQ();
+		mini5->clearQ();
+		mini6->clearQ();
+	}
+	quest = CsvManager::readData("assets/files/M9_L3.txt");
+	mini1 = new Minigame(quest, 300, 250, mouseCollider, event);
+
+	quest = CsvManager::readData("assets/files/M9_L4.txt");
+	mini2 = new Minigame(quest, 300, 250, mouseCollider, event);
+
+	quest = CsvManager::readData("assets/files/M9_L5.txt");
+	mini3 = new Minigame(quest, 300, 250, mouseCollider, event);
+
+	quest = CsvManager::readData("assets/files/M10_L3.txt");
+	mini4 = new Minigame(quest, 300, 250, mouseCollider, event);
+
+	quest = CsvManager::readData("assets/files/M10_L4.txt");
+	mini5 = new Minigame(quest, 300, 250, mouseCollider, event);
+
+	quest = CsvManager::readData("assets/files/M10_L5.txt");
+	mini6 = new Minigame(quest, 300, 250, mouseCollider, event);
+
+	if (subject == "licences")
+	{
+		mini1 = mini1;
+		mini2 = mini2;
+		mini3 = mini3;
+	}
+	if (subject == "programming")
+	{
+		mini1 = mini4;
+		mini2 = mini5;
+		mini3 = mini6;
+	}
+	count++;
 }
 
 void Game::handleEvents()
@@ -357,29 +444,62 @@ void Game::handleEvents()
 				gameState = "menu2";
 				break;
 			}
+			/*else if (gameState == "endState")
+			{
+				gameState = "choice";
+				break;
+			}*/
+			else if (gameState == "miniGameState1")
+			{
+				gameState = "mainGameState";
+				player.getComponent<TransformComponent>().position.x = 300;
+				player.getComponent<TransformComponent>().position.y = 300;
+
+				break;
+
+			}
+			else if (gameState == "miniGameState2")
+			{
+				gameState = "mainGameState";
+				player.getComponent<TransformComponent>().position.x = 300;
+				player.getComponent<TransformComponent>().position.y = 300;
+				break;
+			}
+			else if (gameState == "miniGameState3")
+			{
+				gameState = "mainGameState2";
+				player.getComponent<TransformComponent>().position.x = 300;
+				player.getComponent<TransformComponent>().position.y = 300;
+				break;
+			}
 			else
 			{
 				isRunning = false;
 				break;
 			}
 		}
+		/*else if (event.key.keysym.sym == SDLK_j)
+		{
+			if (gameState == "mainGameState")
+			{
+				gameState = "mainGameState2";
+				mini1 = mini3;
+				mini2 = mini3;
+				break;
+				
+			}
+
+			if (gameState == "mainGameState2")
+			{
+				gameState = "mainGameState3";
+				mini1 = mini5;
+				mini2 = mini6;
+				break;
+			}
+		}*/
 	}
-	
 	}
 }
-
-//void Game::startMiniGame()
-//{
-//	minimap->loadMinimap("assets/ground/map10x10.map", 10, 10, 3, 3);
-//}
-//
-//void Game::stopMiniGame()
-//{
-//	minimap->~Minimap();
-//
-//	Map::loadMap("assets/ground/map16x16.map", 16, 16, 0, 0);
-//
-//}
 
 auto& map1Group(manager.getGroup(groupMap1));
 auto& map2Group(manager.getGroup(groupMap2));
@@ -389,46 +509,64 @@ auto& menus(manager.getGroup(groupMenu));
 auto& players(manager.getGroup(groupPlayers));
 auto& mouses(manager.getGroup(groupMouse));
 auto& menus2(manager.getGroup(groupMenu2));
+auto& menus3(manager.getGroup(groupMenu3));
 auto& minigame1(manager.getGroup(groupMini1));
 auto& minigame2(manager.getGroup(groupMini2));
+auto& minigame3(manager.getGroup(groupMini3));
 auto& helpl1(manager.getGroup(groupHelp));
 
 void Game::update()
 {
-	if (gameState != "creditsState" && gameState != "storyState") {
-		
+	manager.refresh();
+	manager.update();
+	mouseCollider.update();
 
-		if (mini1->getScore() >= 5 && mini2->getScore() >= 5 && mini1->questions[6]->isCompleted() && mini2->questions[6]->isCompleted())
+	if (gameState == "menu1")
+	{
+		for (auto& b : buttons)
 		{
-			gameState = "mainGameState2";
-			mini1 = mini3;
-			mini2 = mini4;
-			player.getComponent<TransformComponent>().position.x = 300;
-			player.getComponent<TransformComponent>().position.y = 300;
-			mini1->countdown.start(300);
-			mini2->countdown.start(300);
+			if (b->tag == "startButton" || b->tag == "creditsButton")
+				b->updateButton(mouseCollider, b->tag);
 		}
-		if (mini3->getScore() >= 5 && mini4->getScore() >= 5 && mini3->questions[6]->isCompleted() && mini4->questions[6]->isCompleted())
+	}
+	else if (gameState == "menu2")
+	{
+		for (auto& b : buttons)
 		{
-			gameState = "mainGameState3";
-			mini1 = mini5;
-			mini2 = mini6;
-			player.getComponent<TransformComponent>().position.x = 500;
-			player.getComponent<TransformComponent>().position.y = 500;
-			mini1->countdown.start(300);
-			mini2->countdown.start(300);
+			if (b->tag == "leoButton" || b->tag == "cleoButton")
+				b->updateButton(mouseCollider, b->tag);
 		}
-		if (mini5->getScore() >= 5 && mini6->getScore() >= 5 && mini5->questions[6]->isCompleted() && mini6->questions[6]->isCompleted())
+		if (charTexFile == "assets/animatiiLeo.png")
 		{
-			gameState = "endState";
+			player.getComponent<SpriteComponent>().setTexture("assets/animatiiLeo.png");
 		}
-
-		manager.refresh();
-		manager.update();
-		mouseCollider.update();
-
-		int collidingWithDoor = 0;
-
+		else if (charTexFile == "assets/animatiiCleo.png")
+		{
+			player.getComponent<SpriteComponent>().setTexture("assets/animatiiCleo.png");
+		}
+	}
+	else if (gameState == "menu3")
+	{
+		for (auto& b : buttons)
+		{
+			if (b->tag == "licences" || b->tag == "programming")
+				b->updateButton(mouseCollider, b->tag);
+		}
+		if (subject == "licences")
+		{
+			mini1 = mini1;
+			mini2 = mini2;
+			mini3 = mini3;
+		}
+		if (subject == "programming")
+		{
+			mini1 = mini4;
+			mini2 = mini5;
+			mini3 = mini6;
+		}
+	}
+	else if (gameState == "mainGameState")
+	{
 		for (auto cc : colliders)
 		{
 			Collision::AABB(player.getComponent<ColliderComponent>(), *cc);
@@ -442,78 +580,94 @@ void Game::update()
 			{
 				if (cc->tag == "mini1")
 				{
-					collidingWithDoor = 1;
-					break;
+					if (!mini1->questions[6]->isCompleted())
+					{
+						gameState = "miniGameState1";
+						break;
+					}
 				}
 				if (cc->tag == "mini2")
 				{
-					collidingWithDoor = 2;
-					break;
+					if (!mini2->questions[6]->isCompleted())
+					{
+						gameState = "miniGameState2";
+						break;
+					}
 				}
 			}
-			else if (gameState != "menu1" && gameState != "menu2" && gameState != "mainGameState2" && gameState != "mainGameState3") {
-				gameState = "mainGameState";
+		}
+	}
+	else if (gameState == "mainGameState2")
+	{
+		for (auto cc : colliders)
+		{
+			Collision::AABB(player.getComponent<ColliderComponent>(), *cc);
+
+			if (Collision::AABB(player.getComponent<ColliderComponent>(), *cc) && cc->tag == "wall")
+			{
+				player.getComponent<TransformComponent>().velocity* (-1);
+			}
+
+			if (Collision::AABB(player.getComponent<ColliderComponent>(), *cc))
+			{
+				if (cc->tag == "mini3")
+				{
+					if (!mini3->questions[6]->isCompleted())
+					{
+						gameState = "miniGameState3";
+						break;
+					}
+				}
 			}
 		}
+	}
+	else if (gameState == "mainGameState3")
+	{
+		for (auto& b : buttons)
+		{
+			if (b->tag == "bomb")
+				b->updateButton(mouseCollider, b->tag);
+		}
+	}
+	else if (gameState == "miniGameState1")
+	{
+		mini1->update();
+		mini1->countdown.update();
+		if (mini1->questions[6]->isCompleted() && !mini2->questions[6]->isCompleted())
+			gameState = "mainGameState";
 
-		if (mini1->getScore() >= 5 && mini2->getScore() >= 5)
+	}
+	else if (gameState == "miniGameState2")
+	{
+		mini2->update();
+		mini2->countdown.update();
+		if (!mini1->questions[6]->isCompleted() && mini2->questions[6]->isCompleted())
+			gameState = "mainGameState";
+		if (mini1->questions[6]->isCompleted() && mini2->questions[6]->isCompleted())
 		{
 			gameState = "mainGameState2";
+			player.getComponent<TransformComponent>().position.x = 300;
+			player.getComponent<TransformComponent>().position.y = 300;
 		}
-		if (mini3->getScore() >= 5 && mini4->getScore() >= 5)
+	}
+	else if (gameState == "miniGameState3")
+	{
+		mini3->update();
+		mini3->countdown.update();
+		if (mini3->questions[6]->isCompleted())
 		{
 			gameState = "mainGameState3";
+			player.getComponent<TransformComponent>().position.x = 300;
+			player.getComponent<TransformComponent>().position.y = 300;
 		}
-
-		switch (collidingWithDoor)
+	}
+	else if (gameState == "endState")
+	{
+		for (auto& b : buttons)
 		{
-		case 1:
-			gameState = "miniGameState1";
-			break;
-		case 2:
-			gameState = "miniGameState2";
-			break;
-		default:
-			break;
-		}
-
-		if (gameState == "menu1")
-		{
-			for (auto& b : buttons)
-			{
+			if (b->tag == "yes")
 				b->updateButton(mouseCollider, b->tag);
-			}
-
 		}
-		else if (gameState == "menu2")
-		{
-			for (auto& b : buttons)
-			{
-				b->updateButton(mouseCollider, b->tag);
-			}
-			if (charTexFile == "assets/animatiiLeo.png")
-			{
-				player.getComponent<SpriteComponent>().setTexture("assets/animatiiLeo.png");
-			}
-			else if (charTexFile == "assets/animatiiCleo.png")
-			{
-				player.getComponent<SpriteComponent>().setTexture("assets/animatiiCleo.png");
-			}
-		}
-
-		if (gameState == "miniGameState1")
-		{
-			mini1->update();
-		}
-		if (gameState == "miniGameState2")
-		{
-			mini2->update();
-		}
-
-
-
-		mini1->countdown.update();
-		mini2->countdown.update();
 	}
 }
 
@@ -541,20 +695,31 @@ void Game::render()
 		credits.draw();
 		label1Credits.draw();
 		label2Credits.draw();
-		label3Credits.draw();
+		//label3Credits.draw();
 		label4Credits.draw();
 		label5Credits.draw();
 		label6Credits.draw();
+		label7Credits.draw();
 	}
 	else if (gameState == "storyState")
 	{
 		credits.draw();
 		labelStory.draw();
+		label7Credits.draw();
 	}
 	else if (gameState == "endState")
 	{
 		credits.draw();
 		endLabel.draw();
+		//label7Credits.draw();
+		label8.draw();
+
+		for (auto& b : buttons)
+		{
+			if (b->tag == "yes") b->draw();
+		}
+
+		mouse.draw();
 	}
 	else if (gameState == "menu2")
 	{
@@ -571,7 +736,21 @@ void Game::render()
 			mo->draw();
 		}
 	}
-
+	else if (gameState == "menu3")
+	{
+		for (auto& n : menus3)
+		{
+			n->draw();
+		}
+		for (auto& b : buttons)
+		{
+			if (b->tag == "licences" || b->tag == "programming") b->draw();
+		}
+		for (auto& mo : mouses)
+		{
+			mo->draw();
+		}
+	}
 	else if (gameState == "mainGameState")
 	{
 		for (auto& m : map1Group)
@@ -620,6 +799,7 @@ void Game::render()
 		{
 			mo->draw();
 		}
+		bomb.draw();
 	}
 
 	else if (gameState == "miniGameState1")
@@ -630,9 +810,8 @@ void Game::render()
 			m->draw();
 		}
 		mini1->draw();
-
+		check->draw();
 		mouse.draw();
-		//gameState = "mainGameState";
 	}
 	else if (gameState == "miniGameState2")
 	{
@@ -642,10 +821,34 @@ void Game::render()
 			m->draw();
 		}
 		mini2->draw();
+		check->draw();
 		mouse.draw();
-		//gameState = "mainGameState";
 	}
-	//customMouse.draw();
+	else if (gameState == "miniGameState3")
+	{
+		for (auto& m : minigame3)
+		{
+			m->draw();
+		}
+		mini3->draw();
+		check->draw();
+		mouse.draw();
+	}
+	//else if (gameState == "choice")
+	//{
+	//	credits.draw();
+	//	label8.draw();
+	//	for (auto& b : buttons)
+	//	{
+	//		if (b->tag == "yes") b->draw();
+	//	}
+	//	mouse.draw();
+	//}
+	else if (gameState == "endLast")
+	{
+		credits.draw();
+		endLabel.draw();
+	}
 	SDL_RenderPresent(renderer);
 
 
@@ -664,17 +867,3 @@ bool Game::running()
 {
 	return isRunning;
 }
-
-void Game::addTile(int id, int x, int y)
-{
-	auto& tile(manager.addEntity());
-	tile.addComponent<TileComponent>(x, y, 32, 32, id); //png width and height
-	tile.addGroup(groupMap1);
-}
-
-void Game::minigameBackground(int id, int x, int y)
-{
-	auto& minitile(manager.addEntity());
-	minitile.addComponent<TileComponent>(x, y, 32, 32, id); //png width and height
-}
-

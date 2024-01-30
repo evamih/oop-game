@@ -1,32 +1,32 @@
-#include "Map.hpp"
-#include "Game.hpp"
- #include <fstream>
-
-Map::Map()
-{
-}
-Map::~Map()
-{
-	
-}
-
-void Map::loadMap(std::string filepath, int sizeX, int sizeY, int xpos, int ypos)
-{
-
-	char tile; 
-	std::fstream mapFile;
-	mapFile.open(filepath);
-
-	for(int y = ypos; y < sizeY+ypos; y++)
-	{
-		for (int x = xpos; x < sizeX+xpos; x++)
-		{
-			mapFile.get(tile);
-			Game::addTile(atoi(&tile), x * 32, y * 32); //width*2, height*2
-			mapFile.ignore();
-		}
-	}
-
-	mapFile.close();
-}
-
+//#include "Map.hpp"
+//#include "Game.hpp"
+// #include <fstream>
+//
+//Map::Map()
+//{
+//}
+//Map::~Map()
+//{
+//	
+//}
+//
+//void Map::loadMap(std::string filepath, int sizeX, int sizeY, int xpos, int ypos)
+//{
+//
+//	char tile; 
+//	std::fstream mapFile;
+//	mapFile.open(filepath);
+//
+//	for(int y = ypos; y < sizeY+ypos; y++)
+//	{
+//		for (int x = xpos; x < sizeX+xpos; x++)
+//		{
+//			mapFile.get(tile);
+//			Game::addTile(atoi(&tile), x * 32, y * 32); //width*2, height*2
+//			mapFile.ignore();
+//		}
+//	}
+//
+//	mapFile.close();
+//}
+//

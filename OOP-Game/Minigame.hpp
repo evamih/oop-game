@@ -72,8 +72,21 @@ public:
 		}
 	}
 
+	void setScore()
+	{
+		rightAnswersCount = 0;
+	}
+
 	int getScore() {
 		return rightAnswersCount;
 	}
 
+	void clearQ()
+	{
+		questions.clear();
+	}
+	int sizeQ()
+	{
+		return questions.size();
+	}
 };

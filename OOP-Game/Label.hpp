@@ -11,7 +11,7 @@ class Label : public Component
 private:
 	SDL_Rect position;
 	std::string labelText;
-	std::string labelFont = "assets/fonts/arial/arial.ttf";
+	std::string labelFont = "assets/fonts/Orbitron-Medium.ttf";
 	SDL_Color textColor;
 	SDL_Texture* labelTexture;
 
