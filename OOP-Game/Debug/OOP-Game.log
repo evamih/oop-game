@@ -1,128 +1,78 @@
-﻿  Button.cpp
-  Collision.cpp
-C:\Users\sergiu\OneDrive\Documents\GitHub\oop-game\OOP-Game\SpriteComponent.h(108,34): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-  (compiling source file 'Collision.cpp')
+﻿  Game.cpp
+C:\Users\serba\Documents\GitHub\oop-game\OOP-Game\SpriteComponent.h(108,34): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+  (compiling source file 'Game.cpp')
   
-C:\Users\sergiu\OneDrive\Documents\GitHub\oop-game\OOP-Game\SpriteComponent.h(109,33): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-  (compiling source file 'Collision.cpp')
+C:\Users\serba\Documents\GitHub\oop-game\OOP-Game\SpriteComponent.h(109,33): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+  (compiling source file 'Game.cpp')
   
-C:\Users\sergiu\OneDrive\Documents\GitHub\oop-game\OOP-Game\Label.hpp(3,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-  (compiling source file 'Collision.cpp')
+C:\Users\serba\Documents\GitHub\oop-game\OOP-Game\ColliderComponent.h(34,33): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+  (compiling source file 'Game.cpp')
   
-C:\Users\sergiu\OneDrive\Documents\GitHub\oop-game\OOP-Game\MouseController.h(27,27): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-  (compiling source file 'Collision.cpp')
+C:\Users\serba\Documents\GitHub\oop-game\OOP-Game\ColliderComponent.h(35,34): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+  (compiling source file 'Game.cpp')
   
-C:\Users\sergiu\OneDrive\Documents\GitHub\oop-game\OOP-Game\MouseController.h(28,27): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-  (compiling source file 'Collision.cpp')
+C:\Users\serba\Documents\GitHub\oop-game\OOP-Game\Label.hpp(3,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+  (compiling source file 'Game.cpp')
   
-C:\Users\sergiu\OneDrive\Documents\GitHub\oop-game\OOP-Game\ColliderComponent.h(34,33): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-  (compiling source file 'Collision.cpp')
+C:\Users\serba\Documents\GitHub\oop-game\OOP-Game\MouseController.h(27,27): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  (compiling source file 'Game.cpp')
   
-C:\Users\sergiu\OneDrive\Documents\GitHub\oop-game\OOP-Game\ColliderComponent.h(35,34): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-  (compiling source file 'Collision.cpp')
+C:\Users\serba\Documents\GitHub\oop-game\OOP-Game\MouseController.h(28,27): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  (compiling source file 'Game.cpp')
   
-C:\Users\sergiu\OneDrive\Documents\GitHub\oop-game\OOP-Game\ECS.h(112,33): warning C4244: 'argument': conversion from '_Ty' to 'float', possible loss of data
-C:\Users\sergiu\OneDrive\Documents\GitHub\oop-game\OOP-Game\ECS.h(112,33): warning C4244:         with
-C:\Users\sergiu\OneDrive\Documents\GitHub\oop-game\OOP-Game\ECS.h(112,33): warning C4244:         [
-C:\Users\sergiu\OneDrive\Documents\GitHub\oop-game\OOP-Game\ECS.h(112,33): warning C4244:             _Ty=int
-C:\Users\sergiu\OneDrive\Documents\GitHub\oop-game\OOP-Game\ECS.h(112,33): warning C4244:         ]
-  (compiling source file 'Collision.cpp')
-  C:\Users\sergiu\OneDrive\Documents\GitHub\oop-game\OOP-Game\ECS.h(112,33):
+C:\Users\serba\Documents\GitHub\oop-game\OOP-Game\Minigame.hpp(36,20): warning C4018: '<': signed/unsigned mismatch
+  (compiling source file 'Game.cpp')
+  
+C:\Users\serba\Documents\GitHub\oop-game\OOP-Game\Minigame.hpp(64,23): warning C4018: '<': signed/unsigned mismatch
+  (compiling source file 'Game.cpp')
+  
+C:\Users\serba\Documents\GitHub\oop-game\OOP-Game\Game.cpp(1154,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\serba\Documents\GitHub\oop-game\OOP-Game\Game.cpp(1164,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\serba\Documents\GitHub\oop-game\OOP-Game\Game.cpp(1174,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\serba\Documents\GitHub\oop-game\OOP-Game\ECS.h(112,33): warning C4244: 'argument': conversion from '_Ty' to 'float', possible loss of data
+C:\Users\serba\Documents\GitHub\oop-game\OOP-Game\ECS.h(112,33): warning C4244:         with
+C:\Users\serba\Documents\GitHub\oop-game\OOP-Game\ECS.h(112,33): warning C4244:         [
+C:\Users\serba\Documents\GitHub\oop-game\OOP-Game\ECS.h(112,33): warning C4244:             _Ty=int
+C:\Users\serba\Documents\GitHub\oop-game\OOP-Game\ECS.h(112,33): warning C4244:         ]
+  (compiling source file 'Game.cpp')
+  C:\Users\serba\Documents\GitHub\oop-game\OOP-Game\ECS.h(112,33):
   the template instantiation context (the oldest one first) is
-  	C:\Users\sergiu\OneDrive\Documents\GitHub\oop-game\OOP-Game\TileComponent.h(52,9):
+  	C:\Users\serba\Documents\GitHub\oop-game\OOP-Game\TileComponent.h(52,9):
   	see reference to function template instantiation 'T &Entity::addComponent<TransformComponent,float,float,int&,int&,int>(float &&,float &&,int &,int &,int &&)' being compiled
           with
           [
               T=TransformComponent
           ]
   
-  Countdown.cpp
-C:\Users\sergiu\OneDrive\Documents\GitHub\oop-game\OOP-Game\Countdown.cpp(62,31): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-C:\Users\sergiu\OneDrive\Documents\GitHub\oop-game\OOP-Game\Countdown.cpp(63,31): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-C:\Users\sergiu\OneDrive\Documents\GitHub\oop-game\OOP-Game\Countdown.cpp(71,66): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-C:\Users\sergiu\OneDrive\Documents\GitHub\oop-game\OOP-Game\Countdown.cpp(72,39): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-C:\Users\sergiu\OneDrive\Documents\GitHub\oop-game\OOP-Game\Countdown.cpp(73,40): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-C:\Users\sergiu\OneDrive\Documents\GitHub\oop-game\OOP-Game\Countdown.cpp(74,40): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-C:\Users\sergiu\OneDrive\Documents\GitHub\oop-game\OOP-Game\Countdown.cpp(76,66): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-C:\Users\sergiu\OneDrive\Documents\GitHub\oop-game\OOP-Game\Countdown.cpp(77,39): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-C:\Users\sergiu\OneDrive\Documents\GitHub\oop-game\OOP-Game\Countdown.cpp(78,40): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-C:\Users\sergiu\OneDrive\Documents\GitHub\oop-game\OOP-Game\Countdown.cpp(79,40): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-C:\Users\sergiu\OneDrive\Documents\GitHub\oop-game\OOP-Game\Countdown.cpp(81,66): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-C:\Users\sergiu\OneDrive\Documents\GitHub\oop-game\OOP-Game\Countdown.cpp(82,39): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-C:\Users\sergiu\OneDrive\Documents\GitHub\oop-game\OOP-Game\Countdown.cpp(83,40): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-C:\Users\sergiu\OneDrive\Documents\GitHub\oop-game\OOP-Game\Countdown.cpp(84,40): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-C:\Users\sergiu\OneDrive\Documents\GitHub\oop-game\OOP-Game\Countdown.cpp(86,66): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-C:\Users\sergiu\OneDrive\Documents\GitHub\oop-game\OOP-Game\Countdown.cpp(87,39): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-C:\Users\sergiu\OneDrive\Documents\GitHub\oop-game\OOP-Game\Countdown.cpp(88,40): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-C:\Users\sergiu\OneDrive\Documents\GitHub\oop-game\OOP-Game\Countdown.cpp(89,40): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-  ECS.cpp
-  Game.cpp
-C:\Users\sergiu\OneDrive\Documents\GitHub\oop-game\OOP-Game\SpriteComponent.h(108,34): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\serba\Documents\GitHub\oop-game\OOP-Game\ECS.h(112,33): warning C4244: 'argument': conversion from '_Ty' to 'int', possible loss of data
+C:\Users\serba\Documents\GitHub\oop-game\OOP-Game\ECS.h(112,33): warning C4244:         with
+C:\Users\serba\Documents\GitHub\oop-game\OOP-Game\ECS.h(112,33): warning C4244:         [
+C:\Users\serba\Documents\GitHub\oop-game\OOP-Game\ECS.h(112,33): warning C4244:             _Ty=float
+C:\Users\serba\Documents\GitHub\oop-game\OOP-Game\ECS.h(112,33): warning C4244:         ]
   (compiling source file 'Game.cpp')
-  
-C:\Users\sergiu\OneDrive\Documents\GitHub\oop-game\OOP-Game\SpriteComponent.h(109,33): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-  (compiling source file 'Game.cpp')
-  
-C:\Users\sergiu\OneDrive\Documents\GitHub\oop-game\OOP-Game\ColliderComponent.h(34,33): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-  (compiling source file 'Game.cpp')
-  
-C:\Users\sergiu\OneDrive\Documents\GitHub\oop-game\OOP-Game\ColliderComponent.h(35,34): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-  (compiling source file 'Game.cpp')
-  
-C:\Users\sergiu\OneDrive\Documents\GitHub\oop-game\OOP-Game\Label.hpp(3,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-  (compiling source file 'Game.cpp')
-  
-C:\Users\sergiu\OneDrive\Documents\GitHub\oop-game\OOP-Game\MouseController.h(27,27): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-  (compiling source file 'Game.cpp')
-  
-C:\Users\sergiu\OneDrive\Documents\GitHub\oop-game\OOP-Game\MouseController.h(28,27): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-  (compiling source file 'Game.cpp')
-  
-C:\Users\sergiu\OneDrive\Documents\GitHub\oop-game\OOP-Game\Minigame.hpp(36,20): warning C4018: '<': signed/unsigned mismatch
-  (compiling source file 'Game.cpp')
-  
-C:\Users\sergiu\OneDrive\Documents\GitHub\oop-game\OOP-Game\Minigame.hpp(64,23): warning C4018: '<': signed/unsigned mismatch
-  (compiling source file 'Game.cpp')
-  
-C:\Users\sergiu\OneDrive\Documents\GitHub\oop-game\OOP-Game\Game.cpp(1138,21): warning C4018: '<': signed/unsigned mismatch
-C:\Users\sergiu\OneDrive\Documents\GitHub\oop-game\OOP-Game\Game.cpp(1148,21): warning C4018: '<': signed/unsigned mismatch
-C:\Users\sergiu\OneDrive\Documents\GitHub\oop-game\OOP-Game\Game.cpp(1158,21): warning C4018: '<': signed/unsigned mismatch
-C:\Users\sergiu\OneDrive\Documents\GitHub\oop-game\OOP-Game\ECS.h(112,33): warning C4244: 'argument': conversion from '_Ty' to 'float', possible loss of data
-C:\Users\sergiu\OneDrive\Documents\GitHub\oop-game\OOP-Game\ECS.h(112,33): warning C4244:         with
-C:\Users\sergiu\OneDrive\Documents\GitHub\oop-game\OOP-Game\ECS.h(112,33): warning C4244:         [
-C:\Users\sergiu\OneDrive\Documents\GitHub\oop-game\OOP-Game\ECS.h(112,33): warning C4244:             _Ty=int
-C:\Users\sergiu\OneDrive\Documents\GitHub\oop-game\OOP-Game\ECS.h(112,33): warning C4244:         ]
-  (compiling source file 'Game.cpp')
-  C:\Users\sergiu\OneDrive\Documents\GitHub\oop-game\OOP-Game\ECS.h(112,33):
+  C:\Users\serba\Documents\GitHub\oop-game\OOP-Game\ECS.h(112,33):
   the template instantiation context (the oldest one first) is
-  	C:\Users\sergiu\OneDrive\Documents\GitHub\oop-game\OOP-Game\TileComponent.h(52,9):
-  	see reference to function template instantiation 'T &Entity::addComponent<TransformComponent,float,float,int&,int&,int>(float &&,float &&,int &,int &,int &&)' being compiled
+  	C:\Users\serba\Documents\GitHub\oop-game\OOP-Game\Game.cpp(200,13):
+  	see reference to function template instantiation 'T &Entity::addComponent<Label,float,float,const char(&)[8],SDL_Color&,int>(float &&,float &&,const char (&)[8],SDL_Color &,int &&)' being compiled
           with
           [
-              T=TransformComponent
+              T=Label
           ]
   
-C:\Users\sergiu\OneDrive\Documents\GitHub\oop-game\OOP-Game\ECS.h(112,33): warning C4244: 'argument': conversion from '_Ty' to 'float', possible loss of data
-C:\Users\sergiu\OneDrive\Documents\GitHub\oop-game\OOP-Game\ECS.h(112,33): warning C4244:         with
-C:\Users\sergiu\OneDrive\Documents\GitHub\oop-game\OOP-Game\ECS.h(112,33): warning C4244:         [
-C:\Users\sergiu\OneDrive\Documents\GitHub\oop-game\OOP-Game\ECS.h(112,33): warning C4244:             _Ty=double
-C:\Users\sergiu\OneDrive\Documents\GitHub\oop-game\OOP-Game\ECS.h(112,33): warning C4244:         ]
+C:\Users\serba\Documents\GitHub\oop-game\OOP-Game\ECS.h(112,33): warning C4244: 'argument': conversion from '_Ty' to 'float', possible loss of data
+C:\Users\serba\Documents\GitHub\oop-game\OOP-Game\ECS.h(112,33): warning C4244:         with
+C:\Users\serba\Documents\GitHub\oop-game\OOP-Game\ECS.h(112,33): warning C4244:         [
+C:\Users\serba\Documents\GitHub\oop-game\OOP-Game\ECS.h(112,33): warning C4244:             _Ty=double
+C:\Users\serba\Documents\GitHub\oop-game\OOP-Game\ECS.h(112,33): warning C4244:         ]
   (compiling source file 'Game.cpp')
-  C:\Users\sergiu\OneDrive\Documents\GitHub\oop-game\OOP-Game\ECS.h(112,33):
+  C:\Users\serba\Documents\GitHub\oop-game\OOP-Game\ECS.h(112,33):
   the template instantiation context (the oldest one first) is
-  	C:\Users\sergiu\OneDrive\Documents\GitHub\oop-game\OOP-Game\Game.cpp(299,14):
+  	C:\Users\serba\Documents\GitHub\oop-game\OOP-Game\Game.cpp(299,14):
   	see reference to function template instantiation 'T &Entity::addComponent<TransformComponent,double,float,int,int,float>(double &&,float &&,int &&,int &&,float &&)' being compiled
           with
           [
               T=TransformComponent
           ]
   
-  Map.cpp
-  Minimap.cpp
-  OOP-Game.cpp
-  TextureManager.cpp
-  Timer.cpp
-  Vector2D.cpp
-  Generating Code...
-C:\Users\sergiu\OneDrive\Documents\GitHub\oop-game\OOP-Game\Label.hpp(73): warning C4715: 'Label::getFont': not all control paths return a value
-  OOP-Game.vcxproj -> C:\Users\sergiu\OneDrive\Documents\GitHub\oop-game\OOP-Game\Debug\OOP-Game.exe
+C:\Users\serba\Documents\GitHub\oop-game\OOP-Game\Label.hpp(73): warning C4715: 'Label::getFont': not all control paths return a value
+  OOP-Game.vcxproj -> C:\Users\serba\Documents\GitHub\oop-game\OOP-Game\Debug\OOP-Game.exe

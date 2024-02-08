@@ -109,13 +109,13 @@ public:
 		destRect.w = transform->width * transform->scale;
 	}
 
-	void updateButton(Mouse& mouse, std::string tag) override
+	void updateButton(Mouse& mouse, std::string tag, int x) override
 	{
 
 		if (SDL_HasIntersection(&destRect, &mouse.point))
 		{
 			isSelected = true;
-			srcRect.x = 52;
+			srcRect.x = x;
 			if (tag == "startButton")
 			{	
 				if (Game::event.type == SDL_MOUSEBUTTONDOWN)

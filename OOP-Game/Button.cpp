@@ -57,6 +57,34 @@ Button::Button(SDL_Texture* texture, int xpos, int ypos, bool n)
 	drect.y = ypos;
 }
 
+//Button::Button(SDL_Texture* texture, int xpos, int ypos, bool n, bool m)
+//{
+//	tex = texture;
+//
+//	srect.h = 79;
+//	srect.w = 110;
+//	srect.x = 0;
+//
+//	drect.h = 79;
+//	drect.w = 200;
+//	drect.x = xpos;
+//	drect.y = ypos;
+//}
+//
+//Button::Button(SDL_Texture* texture, int xpos, int ypos, bool n, int m)
+//{
+//	tex = texture;
+//
+//	srect.h = 79;
+//	srect.w = 110;
+//	srect.x = 0;
+//
+//	drect.h = 79;
+//	drect.w = 200;
+//	drect.x = xpos;
+//	drect.y = ypos;
+//}
+
 void Button::update(Mouse& mouse)
 {
 	if (SDL_HasIntersection(&drect, &mouse.point))
@@ -84,6 +112,32 @@ void Button::update(Mouse& mouse, int flag)
 }
 
 void Button::update(Mouse& mouse, bool n)
+{
+	if (SDL_HasIntersection(&drect, &mouse.point))
+	{
+		isSelected = true;
+		srect.x = 110;
+	}
+	else {
+		isSelected = false;
+		srect.x = 0;
+	}
+}
+
+void Button::update(Mouse& mouse, bool n, bool m)
+{
+	if (SDL_HasIntersection(&drect, &mouse.point))
+	{
+		isSelected = true;
+		srect.x = 200;
+	}
+	else {
+		isSelected = false;
+		srect.x = 0;
+	}
+}
+
+void Button::update(Mouse& mouse, bool n, int m)
 {
 	if (SDL_HasIntersection(&drect, &mouse.point))
 	{

@@ -12,10 +12,14 @@ public:
 	Button();
 	Button(SDL_Texture* texture, int xpos, int ypos);
 	Button(SDL_Texture* texture, int xpos, int ypos, bool);
-	
+	//Button(SDL_Texture* texture, int xpos, int ypos, bool, bool);
+	//Button(SDL_Texture* texture, int xpos, int ypos, bool, int);
+
 	void update(Mouse&);
 	void update(Mouse&, int);
 	void update(Mouse&, bool);
+	void update(Mouse&, bool, bool);
+	void update(Mouse&, bool, int);
 	void draw();
 
 };

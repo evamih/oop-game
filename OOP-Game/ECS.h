@@ -46,7 +46,7 @@ public:
 
 	virtual void init() {} //functions that are going to be overridden
 	virtual void update() {}
-	virtual void updateButton(Mouse& mouse, std::string tag) {}
+	virtual void updateButton(Mouse& mouse, std::string tag, int x) {}
 	virtual void draw() {}
 
 	virtual ~Component() {}
@@ -77,9 +77,9 @@ public:
 		for (auto& c : components) c->draw();
 	}
 
-	void updateButton(Mouse& mouse, std::string tag)
+	void updateButton(Mouse& mouse, std::string tag, int x)
 	{
-		for (auto& c : components) c->updateButton(mouse, tag);
+		for (auto& c : components) c->updateButton(mouse, tag, x);
 	}
 
 	bool isActive()
@@ -148,9 +148,9 @@ public:
 		for (auto& e : entities) e->draw();
 	}
 
-	void updateButton(Mouse& mouse, std::string tag)
+	void updateButton(Mouse& mouse, std::string tag, int x)
 	{
-		for (auto& e : entities) e->updateButton(mouse, tag);
+		for (auto& e : entities) e->updateButton(mouse, tag, x);
 	}
 
 	void refresh() //removes entities if they are not active
