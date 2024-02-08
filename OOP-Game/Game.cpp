@@ -94,7 +94,11 @@ auto& label5Credits(manager.addEntity());
 auto& label6Credits(manager.addEntity());
 auto& label7Credits(manager.addEntity());
 auto& bomb(manager.addEntity("bomb"));
-auto& labelStory(manager.addEntity("story"));
+auto& labelStory1(manager.addEntity("story1"));
+auto& labelStory2(manager.addEntity("story2"));
+auto& labelStory3(manager.addEntity("story3"));
+auto& hackenstein(manager.addEntity("hackenstein"));
+auto& warning(manager.addEntity("warning"));
 auto& labelSubj(manager.addEntity());
 auto& labelChar(manager.addEntity());
 auto& label8(manager.addEntity());
@@ -321,13 +325,21 @@ void Game::init(const char* title, int xPos, int yPos, int width, int height, bo
 	label6Credits.addComponent<Label>(200, 800, "Developed by: Mihai Eva-Elena, Serban Eva-Maria, Tomescu Robert-Iulian, Preda Sergiu-Adrian, Tomescu Adriana-Marinela", black, 20, 1200);
 	label7Credits.addComponent<Label>(200, 1000, "PRESS [ESC] TO EXIT", black, 20, 1200);
 
-	labelStory.addComponent<Label>(200, 400, "In a secret and isolated laboratory, there lived a mad scientist named Dr. Hackerstein. Known for his brilliance in the field of programming, as well as for his eccentricities, Dr. Hackerstein invented a hack that could control any electronic system in the world. Eccentric and malevolent, Hackerstein decided to use his discovery to subjugate the entire digital network, turning it into an extension of his own will. One day, Dr.Hackerstein mysteriously disappeared from his laboratory, leaving behind an encrypted message.Much later, it was revealed that the doctor had created a digital bomb, an explosive device threatening to destroy the entire digital network of the city. With your talent and programming experience, you find yourself in a race against time to save the city from the imminent explosion.Don't forget! With each passing second, the pressure on you and the city increases, placing you in imminent danger.", black, 20, 1100);
+	labelStory1.addComponent<Label>(650, 150, "In a secret and isolated laboratory, there lived a mad scientist named Dr. Hackerstein. Known for his brilliance in the field of programming, as well as for his eccentricities, Dr. Hackerstein invented a hack that could control any electronic system in the world. Eccentric and malevolent, Hackerstein decided to use his discovery to subjugate the entire digital network, turning it into an extension of his own will.", black, 22, 500);
+	labelStory2.addComponent<Label>(200, 530, "One day, Dr.Hackerstein mysteriously disappeared from his laboratory, leaving behind an encrypted message.Much later, it was revealed that the doctor had created a digital bomb, an explosive device threatening to destroy the entire digital network of the city. ", black, 22, 600);
+	labelStory3.addComponent<Label>(200, 800, "With your talent and programming experience, you find yourself in a race against time to save the city from the imminent explosion. Don't forget! With each passing second, the pressure on you and the city increases, placing you in imminent danger.", black, 22, 1200);
+
+	hackenstein.addComponent<TransformComponent>(200, 150, 155, 155, 2.0f);
+	hackenstein.addComponent<SpriteComponent>("assets/assets2/hackenstein.png");
+
+	warning.addComponent<TransformComponent>(1000, 480, 510, 510, 0.5f);
+	warning.addComponent<SpriteComponent>("assets/assets2/warning.png");
 
 	endLabel.addComponent<Label>(200, 200, "You've outwitted me this time... My digital empire crumbles, and my chaotic dreams are extinguished. The code of your skill has proven mightier than my darkest creation. Farewell to my malevolent aspirations, at least for now.....", black, 20, 800);
 
-	label8.addComponent<Label>(200, 500, "If you would like to play the other subject, press the button!", black, 20, 1200);
+	label8.addComponent<Label>(200, 940, "Would you like to play the other subject?", white, 33, 1200);
 
-	yesButton.addComponent<TransformComponent>(667.0f, 800.0f, 31, 51, 4);
+	yesButton.addComponent<TransformComponent>(1000, 900.0f, 31, 51, 4); // previously 667.0f, 900.0f, 31, 51, 4
 	yesButton.addComponent<SpriteComponent>("assets/assets3/yes.png");
 	yesButton.addGroup(groupButtons);
 
@@ -489,7 +501,7 @@ void Game::init(const char* title, int xPos, int yPos, int width, int height, bo
 	help2.addComponent<SpriteComponent>("assets/help/helpButGood2.png");
 	help2.addGroup(groupHelp);
 	
-	help3.addComponent<TransformComponent>(1000.f, 80.f, 45, 45, 2.f);
+	help3.addComponent<TransformComponent>(1060.f, 80.f, 45, 45, 2.f);
 	help3.addComponent<SpriteComponent>("assets/help/helpButGood1.png");
 	help3.addGroup(groupHelp2);
 
@@ -1006,7 +1018,14 @@ void Game::render()
 	else if (gameState == "storyState")
 	{
 		credits.draw();
-		labelStory.draw();
+
+		hackenstein.draw();
+		warning.draw();
+		
+		labelStory1.draw();
+		labelStory2.draw();
+		labelStory3.draw();
+		
 		label7Credits.draw();
 	}
 	else if (gameState == "endState")
