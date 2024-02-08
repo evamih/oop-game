@@ -88,6 +88,18 @@ auto& wall7(manager.addEntity());
 auto& wall8(manager.addEntity());
 auto& wall9(manager.addEntity());
 auto& wall10(manager.addEntity());
+auto& wall11(manager.addEntity());
+auto& wall12(manager.addEntity());
+auto& wall13(manager.addEntity());
+auto& wall14(manager.addEntity());
+auto& wall15(manager.addEntity());
+auto& wall16(manager.addEntity());
+auto& wall17(manager.addEntity());
+auto& wall18(manager.addEntity());
+auto& wall19(manager.addEntity());
+auto& wall20(manager.addEntity());
+auto& wall21(manager.addEntity());
+auto& wall22(manager.addEntity());
 
 std::vector<std::string> quest;
 Minigame* mini1;
@@ -297,22 +309,93 @@ void Game::init(const char* title, int xPos, int yPos, int width, int height, bo
 	//noButton.addComponent<SpriteComponent>("assets/cleoBut.png");
 	//noButton.addGroup(groupButtons);
 
-	wall1.addComponent<TransformComponent>(0.f, 0.f, 355, 270, 1.f);
+	wall1.addComponent<TransformComponent>(0.f, 0.f, 270, 1600, 1.f);
 	wall1.addComponent<ColliderComponent>("wall");
 	wall1.addComponent<SpriteComponent>("assets/pink32.png");
 
-	wall2.addComponent<TransformComponent>(0.f, 0.f, 270, 871, 1.f);
+	wall2.addComponent<TransformComponent>(215.f, 260.f, 165, 55, 1.f);
 	wall2.addComponent<ColliderComponent>("wall");
 	wall2.addComponent<SpriteComponent>("assets/pink32.png");
 
-	wall3.addComponent<TransformComponent>(0.f, 636.f, 500, 270, 1.f);
+	wall3.addComponent<TransformComponent>(0.f, 260.f, 465, 20, 1.f);
 	wall3.addComponent<ColliderComponent>("wall");
 	wall3.addComponent<SpriteComponent>("assets/pink32.png");
 
-	wall4.addComponent<TransformComponent>(0.f, 0.f, 2000, 20, 1.f);
+	wall4.addComponent<TransformComponent>(215.f, 640.f, 560, 55, 1.f);
 	wall4.addComponent<ColliderComponent>("wall");
-	wall3.addComponent<SpriteComponent>("assets/pink32.png");
+	wall4.addComponent<SpriteComponent>("assets/pink32.png");
 
+	wall5.addComponent<TransformComponent>(0.f, 715.f, 485, 225, 1.f);
+	wall5.addComponent<ColliderComponent>("wall");
+	wall5.addComponent<SpriteComponent>("assets/pink32.png");
+
+	wall6.addComponent<TransformComponent>(260.f, 840.f, 360, 165, 1.f);
+	wall6.addComponent<ColliderComponent>("wall1");
+	wall6.addComponent<SpriteComponent>("assets/pink32.png");
+
+	wall7.addComponent<TransformComponent>(415.f, 1110.f, 90, 925, 1.f);
+	wall7.addComponent<ColliderComponent>("wall1");
+	wall7.addComponent<SpriteComponent>("assets/pink32.png");
+
+	wall8.addComponent<TransformComponent>(1330.f, 950.f, 250, 270, 1.f);
+	wall8.addComponent<ColliderComponent>("wall1");
+	wall8.addComponent<SpriteComponent>("assets/pink32.png");
+
+	wall9.addComponent<TransformComponent>(1515.f, 260.f, 700, 85, 1.f);
+	wall9.addComponent<ColliderComponent>("wall");
+	wall9.addComponent<SpriteComponent>("assets/pink32.png");
+
+	wall10.addComponent<TransformComponent>(1080.f, 480.f, 125, 520, 1.f);
+	wall10.addComponent<ColliderComponent>("wall1");
+	wall10.addComponent<SpriteComponent>("assets/pink32.png");
+
+	wall11.addComponent<TransformComponent>(1280.f, 595.f, 130, 520, 1.f);
+	wall11.addComponent<ColliderComponent>("wall1");
+	wall11.addComponent<SpriteComponent>("assets/pink32.png");
+
+	wall12.addComponent<TransformComponent>(260.f, 765.f, 360, 165, 1.f);
+	wall12.addComponent<ColliderComponent>("wall2");
+	wall12.addComponent<SpriteComponent>("assets/pink32.png");
+
+	wall13.addComponent<TransformComponent>(660.f, 1010.f, 360, 300, 1.f);
+	wall13.addComponent<ColliderComponent>("wall2");
+	wall13.addComponent<SpriteComponent>("assets/pink32.png");
+
+	wall14.addComponent<TransformComponent>(1270.f, 950.f, 250, 270, 1.f);
+	wall14.addComponent<ColliderComponent>("wall2");
+	wall14.addComponent<SpriteComponent>("assets/pink32.png");
+
+	wall15.addComponent<TransformComponent>(1340.f, 595.f, 130, 520, 1.f);
+	wall15.addComponent<ColliderComponent>("wall2");
+	wall15.addComponent<SpriteComponent>("assets/pink32.png");
+
+	wall16.addComponent<TransformComponent>(1080.f, 480.f, 125, 520, 1.f);
+	wall16.addComponent<ColliderComponent>("wall2");
+	wall16.addComponent<SpriteComponent>("assets/pink32.png");
+
+	wall17.addComponent<TransformComponent>(415.f, 1110.f, 90, 925, 1.f);
+	wall17.addComponent<ColliderComponent>("wall2");
+	wall17.addComponent<SpriteComponent>("assets/pink32.png");
+
+	wall18.addComponent<TransformComponent>(250.f, 1110.f, 90, 1200, 1.f);
+	wall18.addComponent<ColliderComponent>("wall3");
+	wall18.addComponent<SpriteComponent>("assets/pink32.png");
+
+	wall19.addComponent<TransformComponent>(1355.f, 835.f, 300, 270, 1.f);
+	wall19.addComponent<ColliderComponent>("wall3");
+	wall19.addComponent<SpriteComponent>("assets/pink32.png");
+
+	wall20.addComponent<TransformComponent>(1080.f, 480.f, 125, 520, 1.f);
+	wall20.addComponent<ColliderComponent>("wall3");
+	wall20.addComponent<SpriteComponent>("assets/pink32.png");
+
+	wall21.addComponent<TransformComponent>(630.f, 980.f, 300, 140, 1.f);
+	wall21.addComponent<ColliderComponent>("wall3");
+	wall21.addComponent<SpriteComponent>("assets/pink32.png");
+
+	wall22.addComponent<TransformComponent>(1345.f, 100.f, 500, 520, 1.f);
+	wall22.addComponent<ColliderComponent>("wall3");
+	wall22.addComponent<SpriteComponent>("assets/pink32.png");
 
 	/*wall1.addGroup(groupMap1);
 	wall1.addGroup(groupMap2);
@@ -321,15 +404,54 @@ void Game::init(const char* title, int xPos, int yPos, int width, int height, bo
 	wall2.addGroup(groupMap1);
 	wall2.addGroup(groupMap2);
 	wall2.addGroup(groupMap3);
-
+	
 	wall3.addGroup(groupMap1);
 	wall3.addGroup(groupMap2);
 	wall3.addGroup(groupMap3);
 
 	wall4.addGroup(groupMap1);
 	wall4.addGroup(groupMap2);
-	wall4.addGroup(groupMap3);*/
+	wall4.addGroup(groupMap3);
 
+	wall5.addGroup(groupMap1);
+	wall5.addGroup(groupMap2);
+	wall5.addGroup(groupMap3);
+
+	wall6.addGroup(groupMap1);
+
+	wall7.addGroup(groupMap1);
+
+	wall8.addGroup(groupMap1);
+
+	wall9.addGroup(groupMap1);
+	wall9.addGroup(groupMap2);
+	wall9.addGroup(groupMap3);
+
+	wall10.addGroup(groupMap1);
+
+	wall11.addGroup(groupMap1);
+
+	wall12.addGroup(groupMap2);
+
+	wall13.addGroup(groupMap2);
+
+	wall14.addGroup(groupMap2);
+	
+	wall15.addGroup(groupMap2);
+
+	wall16.addGroup(groupMap2);
+
+	wall17.addGroup(groupMap2);
+
+	wall18.addGroup(groupMap3);
+
+	wall19.addGroup(groupMap3);
+
+	wall20.addGroup(groupMap3);
+
+	wall21.addGroup(groupMap3);
+
+	wall22.addGroup(groupMap3);*/
 
 	help1.addComponent<TransformComponent>(1000.f, 80.f, 20, 20, 1.f);
 	//help1.addComponent<SpriteComponent>("assets/assets2/checkButton.png");
@@ -338,18 +460,6 @@ void Game::init(const char* title, int xPos, int yPos, int width, int height, bo
 	help2.addComponent<TransformComponent>(1140.f, 80.f, 20, 20, 1.f);
 	//help2.addComponent<SpriteComponent>("assets/assets2/checkButton.png");
 	help2.addGroup(groupHelp);
-
-	//wall5.addComponent<TransformComponent>(0.f, 1560.f, 50, 1600, 1.f);
-	//wall5.addComponent<ColliderComponent>("wall");
-
-	//wall6.addComponent<TransformComponent>(1300.f, 0.f, 50, 1700, 1.f);
-	//wall6.addComponent<ColliderComponent>("wall");
-
-	/*wall7.addComponent<TransformComponent>(0.f, 0.f, 270, 355);
-	wall7.addComponent<ColliderComponent>("wall");
-
-	wall8.addComponent<TransformComponent>(0.f, 0.f, 270, 355);
-	wall8.addComponent<ColliderComponent>("wall");*/
 
 	quest = CsvManager::readData("assets/files/M9_L3.txt");
 	mini1 = new Minigame(quest, 300, 250, mouseCollider, event);
@@ -478,7 +588,7 @@ void Game::handleEvents()
 				break;
 			}
 		}
-		/*else if (event.key.keysym.sym == SDLK_j)
+		else if (event.key.keysym.sym == SDLK_j)
 		{
 			if (gameState == "mainGameState")
 			{
@@ -496,7 +606,7 @@ void Game::handleEvents()
 				mini2 = mini6;
 				break;
 			}
-		}*/
+		}
 	}
 	}
 }
@@ -520,6 +630,8 @@ void Game::update()
 	manager.refresh();
 	manager.update();
 	mouseCollider.update();
+	
+	std::cout << mouseCollider.point.x << ";" << mouseCollider.point.y << "\n";
 
 	if (gameState == "menu1")
 	{
@@ -576,6 +688,11 @@ void Game::update()
 				player.getComponent<TransformComponent>().velocity* (-1);
 			}
 
+			else if (Collision::AABB(player.getComponent<ColliderComponent>(), *cc) && cc->tag == "wall1")
+			{
+				player.getComponent<TransformComponent>().velocity* (-1);
+			}
+
 			if (Collision::AABB(player.getComponent<ColliderComponent>(), *cc))
 			{
 				if (cc->tag == "mini1")
@@ -607,6 +724,11 @@ void Game::update()
 			{
 				player.getComponent<TransformComponent>().velocity* (-1);
 			}
+			
+			else if (Collision::AABB(player.getComponent<ColliderComponent>(), *cc) && cc->tag == "wall2")
+			{
+				player.getComponent<TransformComponent>().velocity* (-1);
+			}
 
 			if (Collision::AABB(player.getComponent<ColliderComponent>(), *cc))
 			{
@@ -623,6 +745,21 @@ void Game::update()
 	}
 	else if (gameState == "mainGameState3")
 	{
+		for (auto cc : colliders)
+		{
+			Collision::AABB(player.getComponent<ColliderComponent>(), *cc);
+
+			if (Collision::AABB(player.getComponent<ColliderComponent>(), *cc) && cc->tag == "wall")
+			{
+				player.getComponent<TransformComponent>().velocity* (-1);
+			}
+
+			else if (Collision::AABB(player.getComponent<ColliderComponent>(), *cc) && cc->tag == "wall3")
+			{
+				player.getComponent<TransformComponent>().velocity* (-1);
+			}
+		}
+
 		for (auto& b : buttons)
 		{
 			if (b->tag == "bomb")
