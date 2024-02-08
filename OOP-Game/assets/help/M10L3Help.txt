@@ -1,0 +1,4 @@
+Classical programming: Classical / software programming, also known as coding or software development, is the process of creating computer programs or software applications. 
+It involves writing instructions or code using programming languages to tell a computer what to do.
+Every industry nowadays is touched by programming, becoming an essential element in our lives. Even though it started as a subject studied by a few in the last century, today, more than 30 million people worldwide code. 
+As programming and coding became essential to our society, it is important that more people understand and participate in the process, not only the tech and IT workers.

@@ -32,6 +32,30 @@ auto& m10Label(manager.addEntity());
 
 auto& help1(manager.addEntity("help1"));
 auto& help2(manager.addEntity("help2"));
+auto& help3(manager.addEntity("help3"));
+
+std::vector<std::string> help1TextM9;
+std::vector<std::string> help2TextM9;
+std::vector<std::string> help3TextM9;
+
+std::vector<std::string> help1TextM10;
+std::vector<std::string> help2TextM10;
+std::vector<std::string> help3TextM10;
+
+std::vector <Label*> help1M9Label; // help labels for module 9
+std::vector <Label*> help2M9Label;
+std::vector <Label*> help3M9Label;
+
+std::vector <Label*> help1M10Label; // help labels for module 10
+std::vector <Label*> help2M10Label;
+std::vector <Label*> help3M10Label;
+
+std::vector <Label*> help1Label; // actual rendered help labels
+std::vector <Label*> help2Label;
+std::vector <Label*> help3Label;
+
+auto& helpBg1(manager.addEntity());
+auto& helpBg2(manager.addEntity());
 
 auto& player(manager.addEntity());
 auto& mouse(manager.addEntity());
@@ -127,6 +151,8 @@ enum groupLabels : std::size_t
 	groupMini5,
 	groupMini6,
 	groupHelp,
+	groupHelp2,
+	groupHelpScreen,
 	groupEnd
 };
 
@@ -453,13 +479,92 @@ void Game::init(const char* title, int xPos, int yPos, int width, int height, bo
 
 	wall22.addGroup(groupMap3);*/
 
-	help1.addComponent<TransformComponent>(1000.f, 80.f, 20, 20, 1.f);
-	//help1.addComponent<SpriteComponent>("assets/assets2/checkButton.png");
+	help1.addComponent<TransformComponent>(1000.f, 80.f, 45, 45, 2.f);
+	help1.addComponent<SpriteComponent>("assets/help/helpButGood1.png");
 	help1.addGroup(groupHelp);
-
-	help2.addComponent<TransformComponent>(1140.f, 80.f, 20, 20, 1.f);
-	//help2.addComponent<SpriteComponent>("assets/assets2/checkButton.png");
+	
+	help2.addComponent<TransformComponent>(1150.f, 80.f, 45, 45, 2.f);
+	help2.addComponent<SpriteComponent>("assets/help/helpButGood2.png");
 	help2.addGroup(groupHelp);
+	
+	help3.addComponent<TransformComponent>(1000.f, 80.f, 45, 45, 2.f);
+	help3.addComponent<SpriteComponent>("assets/help/helpButGood1.png");
+	help3.addGroup(groupHelp2);
+
+	//--------------Module 9 help text -------------------
+
+	std::ifstream fin1("assets/help/M9L3Help.txt", std::ios::in);
+	std::string line;
+	while (std::getline(fin1, line)) {
+		help1TextM9.push_back(line);
+		help1M9Label.push_back(new Label(200, 200, line, black, 20, 900));
+	}
+	fin1.close();
+	
+	std::ifstream fin2("assets/help/M9L4Help.txt", std::ios::in);
+	line = "";
+	while (std::getline(fin2, line)) {
+		help2TextM9.push_back(line);
+		help2M9Label.push_back(new Label(200, 200, line, black, 20, 900));
+	}
+	fin2.close();
+	
+	std::ifstream fin3("assets/help/M9L5Help.txt", std::ios::in);
+	line = "";
+	while (std::getline(fin3, line)) {
+		help3TextM9.push_back(line);
+		help3M9Label.push_back(new Label(200, 200, line, black, 20, 900));
+	}
+	fin3.close();
+
+	//--------------Module 10 help text -------------------
+	
+	std::ifstream fin4("assets/help/M10L3Help.txt", std::ios::in);
+	line = "";
+	while (std::getline(fin4, line)) {
+		help1TextM10.push_back(line);
+		help1M10Label.push_back(new Label(200, 200, line, black, 20, 900));
+		
+	}
+	fin4.close();
+	
+	std::ifstream fin5("assets/help/M10L4Help.txt", std::ios::in);
+	line = "";
+	while (std::getline(fin5, line)) {
+		help2TextM10.push_back(line);
+		help2M10Label.push_back(new Label(200, 200, line, black, 20, 900));
+	}
+	fin5.close();
+	
+	std::ifstream fin6("assets/help/M10L5Help.txt", std::ios::in);
+	line = "";
+	while (std::getline(fin6, line)) {
+		help3TextM10.push_back(line);
+		help3M10Label.push_back(new Label(200, 200, line, black, 20, 900));
+	}
+	fin6.close();
+
+	//----------------------------------------------
+
+	helpBg1.addComponent<TransformComponent>(0.f, 0.f, 768, 1024, 1.5f);
+	helpBg1.addComponent<SpriteComponent>("assets/help/helpBg1.png");
+	
+	
+	helpBg2.addComponent<TransformComponent>(0.f, 0.f, 768, 1024, 1.5f);
+	helpBg2.addComponent<SpriteComponent>("assets/help/helpBg2.png");
+
+
+	//wall5.addComponent<TransformComponent>(0.f, 1560.f, 50, 1600, 1.f);
+	//wall5.addComponent<ColliderComponent>("wall");
+
+	//wall6.addComponent<TransformComponent>(1300.f, 0.f, 50, 1700, 1.f);
+	//wall6.addComponent<ColliderComponent>("wall");
+
+	/*wall7.addComponent<TransformComponent>(0.f, 0.f, 270, 355);
+	wall7.addComponent<ColliderComponent>("wall");
+
+	wall8.addComponent<TransformComponent>(0.f, 0.f, 270, 355);
+	wall8.addComponent<ColliderComponent>("wall");*/
 
 	quest = CsvManager::readData("assets/files/M9_L3.txt");
 	mini1 = new Minigame(quest, 300, 250, mouseCollider, event);
@@ -575,12 +680,21 @@ void Game::handleEvents()
 				player.getComponent<TransformComponent>().position.y = 300;
 				break;
 			}
-			else if (gameState == "miniGameState3")
+			else if (gameState == "miniGameState3" || gameState == "help3GameState")
 			{
 				gameState = "mainGameState2";
-				player.getComponent<TransformComponent>().position.x = 300;
-				player.getComponent<TransformComponent>().position.y = 300;
+				player.getComponent<TransformComponent>().position.x = 500;
+				player.getComponent<TransformComponent>().position.y = 500;
 				break;
+			}
+			else if (gameState == "help1GameState" || gameState == "help2GameState")
+			{
+				gameState = "mainGameState";
+				player.getComponent<TransformComponent>().position.x = 500;
+				player.getComponent<TransformComponent>().position.y = 500;
+
+				break;
+
 			}
 			else
 			{
@@ -624,22 +738,38 @@ auto& minigame1(manager.getGroup(groupMini1));
 auto& minigame2(manager.getGroup(groupMini2));
 auto& minigame3(manager.getGroup(groupMini3));
 auto& helpl1(manager.getGroup(groupHelp));
+auto& helpl2(manager.getGroup(groupHelp2));
+auto& helpscr(manager.getGroup(groupHelpScreen));
 
 void Game::update()
 {
 	manager.refresh();
 	manager.update();
 	mouseCollider.update();
+	//std::cout << mouseCollider.point.x << " " << mouseCollider.point.y << std::endl;
 	
-	std::cout << mouseCollider.point.x << ";" << mouseCollider.point.y << "\n";
+	
+	//-------------Game test purposes-------------------
 
+	if (SDL_KEYDOWN)
+	{
+		if(event.key.keysym.sym == SDLK_1)
+			gameState = "mainGameState";
+		else if (event.key.keysym.sym == SDLK_2)
+			gameState = "mainGameState2";
+		else if (event.key.keysym.sym == SDLK_3)
+			gameState = "mainGameState3";
+	}
+
+	//---------------------------------------------------
+	
 	if (gameState == "menu1")
 	{
 		for (auto& b : buttons)
 		{
 			if (b->tag == "startButton" || b->tag == "creditsButton")
 				b->updateButton(mouseCollider, b->tag);
-		}
+		}	
 	}
 	else if (gameState == "menu2")
 	{
@@ -669,16 +799,36 @@ void Game::update()
 			mini1 = mini1;
 			mini2 = mini2;
 			mini3 = mini3;
+
+			help1Label = help1M9Label;
+			help2Label = help2M9Label;
+			help3Label = help3M9Label;
+
 		}
 		if (subject == "programming")
 		{
 			mini1 = mini4;
 			mini2 = mini5;
 			mini3 = mini6;
+
+			help1Label = help1M10Label;
+			help2Label = help2M10Label;
+			help3Label = help3M10Label;
 		}
 	}
 	else if (gameState == "mainGameState")
 	{
+		for (auto& h : helpl1)
+		{
+			if (h->tag == "help1")
+			{
+				h->updateButton(mouseCollider, h->tag);
+			}
+			if (h->tag == "help2")
+			{
+				h->updateButton(mouseCollider, h->tag);
+			}
+		}
 		for (auto cc : colliders)
 		{
 			Collision::AABB(player.getComponent<ColliderComponent>(), *cc);
@@ -716,6 +866,13 @@ void Game::update()
 	}
 	else if (gameState == "mainGameState2")
 	{
+		for (auto& h : helpl2)
+		{
+			if (h->tag == "help3")
+			{
+				h->updateButton(mouseCollider, h->tag);
+			}
+		}
 		for (auto cc : colliders)
 		{
 			Collision::AABB(player.getComponent<ColliderComponent>(), *cc);
@@ -913,6 +1070,10 @@ void Game::render()
 		{
 			m->draw();
 		}
+		for (auto& h : helpl2)
+		{
+			h->draw();
+		}
 		for (auto& p : players)
 		{
 			p->draw();
@@ -969,6 +1130,36 @@ void Game::render()
 		}
 		mini3->draw();
 		check->draw();
+		mouse.draw();
+	}
+	else if (gameState == "help1GameState")
+	{
+		helpBg1.draw();
+		for (int i = 0; i < help1Label.size(); i++)
+		{
+			help1Label[i]->setPos(300, 160 + i * 150);
+			help1Label[i]->draw();
+		}
+		mouse.draw();
+	}
+	else if (gameState == "help2GameState")
+	{
+		helpBg2.draw();
+		for (int i = 0; i < help2Label.size(); i++)
+		{
+			help2Label[i]->setPos(300, 160 + i * 100);
+			help2Label[i]->draw();
+		}
+		mouse.draw();
+	}
+	else if (gameState == "help3GameState")
+	{
+		helpBg1.draw();
+		for (int i = 0; i < help3Label.size(); i++)
+		{
+			help3Label[i]->setPos(300, 160 + i * 150);
+			help3Label[i]->draw();
+		}
 		mouse.draw();
 	}
 	//else if (gameState == "choice")

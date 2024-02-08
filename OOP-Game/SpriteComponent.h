@@ -212,6 +212,36 @@ public:
 					}
 				}
 			}
+			else if (tag == "help1")
+			{
+				if (Game::event.type == SDL_MOUSEBUTTONDOWN)
+				{
+					if (SDL_BUTTON_LEFT == Game::event.button.button)
+					{
+						Game::gameState = "help1GameState";
+					}
+				}
+			}
+			else if (tag == "help2")
+			{
+				if (Game::event.type == SDL_MOUSEBUTTONDOWN)
+				{
+					if (SDL_BUTTON_LEFT == Game::event.button.button)
+					{
+						Game::gameState = "help2GameState";
+					}
+				}
+			}
+			else if (tag == "help3")
+			{
+				if (Game::event.type == SDL_MOUSEBUTTONDOWN)
+				{
+					if (SDL_BUTTON_LEFT == Game::event.button.button)
+					{
+						Game::gameState = "help3GameState";
+					}
+				}
+			}
 		}
 		else
 		{

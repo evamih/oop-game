@@ -1,0 +1,4 @@
+A licence is the official permission or permit to do, use, or own something, as well as the document of that permission or permit. 
+The choice of license depends on the content owner's goals and intentions for their digital content. For the licensors, a licensing arrangement can generate significant revenue and the licensor's ownership and control of its intellectual property rights are typically very important.
+The scope of the licence refers to the set of rights and limitations, granted by a vendor to users or customers. The vendor sets the scope it considers appropriate in the license agreement.
+Free and open-source licenses, on the other hand, promote sharing, collaboration, and community-driven development.

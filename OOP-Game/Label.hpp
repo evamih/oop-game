@@ -72,4 +72,24 @@ public:
 		}
 	}
 
+	std::string getText()
+	{
+		return labelText;
+	}
+
+	void setText(std::string text)
+	{
+		labelText = text;
+		setLabelText(30);
+	}
+
+	void setPos(int x, int y)
+	{
+		position.x = x;
+		position.y = y;
+	}
+	SDL_Rect getPos()
+	{
+		return position;
+	}
 };
