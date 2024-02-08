@@ -3,5 +3,5 @@ What is a content management system?@A programming language@A tool deploy websit
 What is the database used for?@Create the website@Store websites@Create data for the website@Store data that is used for the website@3
 What is a web framework?@A tool to design websites@A collection of tools and libraries used to create a website@A user interface@A type of web server@1
 Which of the following is NOT a core technology of web development?@JavaScript@HTML@Mobile development@CSS@2
-What is a content management system?@A tool used to create content for a website@A programming language to create websites@A framework created to build web apps@None of the answers@3
+What role does the frontend development play?@To create the visual interface including the interactions for a website@To manage the content of the website@To create the user experience of a website@To distribute web application in multiple languages@0
 What is a domain name?@A name used to identify a web page@An address used to find a website@A name used for a web server@An unique name that identifies a website on the internet@3
