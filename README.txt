@@ -1,0 +1,1 @@
+After extracting the files, add VC_redist.x64 and VC_redist.x86 to the folder and use them if necessary.
